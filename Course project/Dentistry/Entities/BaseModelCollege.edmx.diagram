@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d0f5de31b0dc4a70bcc50b9806e99afa" Name="Diagram1">
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Client" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Department" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Doctor" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Position" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.Service" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DentistryRLModelCollege.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="DentistryRLModelCollege.FK_Order_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="DentistryRLModelCollege.FK_Order_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="DentistryRLModelCollege.FK_Doctor_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="DentistryRLModelCollege.FK_Order_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="DentistryRLModelCollege.FK_Order_Service" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

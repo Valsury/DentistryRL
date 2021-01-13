@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DentistryRLModelHomeStoreContainer" CdmEntityContainer="DentistryRLEntitiesHome">
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+          <ScalarProperty Name="NameAuthor" ColumnName="NameAuthor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="NameClient" ColumnName="NameClient" />
+          <ScalarProperty Name="LastNameClient" ColumnName="LastNameClient" />
+          <ScalarProperty Name="BirthDateClient" ColumnName="BirthDateClient" />
+          <ScalarProperty Name="SeriesOfPassportClient" ColumnName="SeriesOfPassportClient" />
+          <ScalarProperty Name="NumberOfPassportClient" ColumnName="NumberOfPassportClient" />
+          <ScalarProperty Name="PhoneNumberClient" ColumnName="PhoneNumberClient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+          <ScalarProperty Name="NameDepartment" ColumnName="NameDepartment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
+          <ScalarProperty Name="NameDoctor" ColumnName="NameDoctor" />
+          <ScalarProperty Name="LastNameDoctor" ColumnName="LastNameDoctor" />
+          <ScalarProperty Name="WorkExperienceDoctor" ColumnName="WorkExperienceDoctor" />
+          <ScalarProperty Name="PhoneNumberDoctor" ColumnName="PhoneNumberDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.News">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="IdNews" ColumnName="IdNews" />
+          <ScalarProperty Name="HeaderNews" ColumnName="HeaderNews" />
+          <ScalarProperty Name="TextNews" ColumnName="TextNews" />
+          <ScalarProperty Name="CreationDateNews" ColumnName="CreationDateNews" />
+          <ScalarProperty Name="PhotoNews" ColumnName="PhotoNews" />
+          <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="NameOrder" ColumnName="NameOrder" />
+          <ScalarProperty Name="DateOfAdmissionOrder" ColumnName="DateOfAdmissionOrder" />
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+          <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
+          <ScalarProperty Name="NamePosition" ColumnName="NamePosition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.Service">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+          <ScalarProperty Name="NameService" ColumnName="NameService" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DentistryRLModelHome.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+          <ScalarProperty Name="LastNameUser" ColumnName="LastNameUser" />
+          <ScalarProperty Name="PatronimicUser" ColumnName="PatronimicUser" />
+          <ScalarProperty Name="DateOfBirthUser" ColumnName="DateOfBirthUser" />
+          <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
+          <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+          <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

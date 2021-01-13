@@ -1,0 +1,58 @@
+﻿<Page x:Class="Dentistry.Pages.InfoAboutUsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dentistry.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900" Background="White"
+      Title="Информация о пользователях">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="1" x:Name="DGridUsers" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="*" Header="Фото">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Margin="5" Source="{Binding PreviewUser}" ></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*" Header="Роль" Binding="{Binding Position.NamePosition}"/>
+                <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding NameUser}"/>
+                <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding LastNameUser}"/>
+                <DataGridTextColumn Width="*" Header="Отчество" Binding="{Binding PatronymicUser}"/>
+                <DataGridTextColumn Width="*" Header="Дата рождения" Binding="{Binding DateOfBirthUser}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox Style="{StaticResource TboxSearch}" Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock HorizontalAlignment="Right" TextAlignment="Right" Text="Сортировка по:" Style="{StaticResource CommonText}" Width="160"></TextBlock>
+            <ComboBox HorizontalAlignment="Right" Name="ComboFilter" SelectionChanged="ComboFilter_SelectionChanged" SelectedIndex="0">
+                <ComboBoxItem Content="Имя"></ComboBoxItem>
+                <ComboBoxItem Content="Фамилия"></ComboBoxItem>
+                <ComboBoxItem Content="Отчество"></ComboBoxItem>
+                <ComboBoxItem Content="Дата рождения"></ComboBoxItem>
+                <!--<ComboBoxItem Content="Серия паспорта"></ComboBoxItem>
+                <ComboBoxItem Content="Номер паспорта"></ComboBoxItem>
+                <ComboBoxItem Content="Номер телефона"></ComboBoxItem>-->
+            </ComboBox>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
+            <Button Name="BtnAddData" Content="Добавить"  Click="BtnAddData_Click"></Button>
+            <Button Name="BtnChangeData" Content="Редактировать"  Click="BtnChangeData_Click"></Button>
+            <Button Name="BtnDeleteData" Content="Удалить"  Click="BtnDeleteData_Click"></Button>
+            <Button Name="BtnReportData" Content="Отчёт"  Click="BtnReportData_Click"></Button>
+        </StackPanel>
+       
+    </Grid>
+</Page>

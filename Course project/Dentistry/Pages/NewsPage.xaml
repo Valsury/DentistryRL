@@ -1,0 +1,47 @@
+﻿<Page x:Class="Dentistry.Pages.NewsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dentistry.Pages"
+      xmlns:usercontrols="clr-namespace:Dentistry.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Background="White"
+      Title="NewsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Автор: " Style="{StaticResource CommonText}"></TextBlock>
+            <ComboBox SelectedIndex="0" Name="ComboAuthors" DisplayMemberPath="NameAuthor" SelectionChanged="ComboAuthors_SelectionChanged"></ComboBox>
+            <TextBlock Text="Сортировать по: " Style="{StaticResource CommonText}"></TextBlock>
+            <ComboBox  Name="ComboSort" SelectedIndex="0" SelectionChanged="ComboSort_SelectionChanged">
+                <ComboBoxItem Content="Заголовок"></ComboBoxItem>
+                <ComboBoxItem Content="Текст"></ComboBoxItem>
+                <ComboBoxItem Content="Дата публикации"></ComboBoxItem>
+                <ComboBoxItem Content="Автор"></ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Row="2">
+            <ItemsControl Name="LViewNews">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                        <usercontrols:NewsUserControl Margin="15 10" Width="400"></usercontrols:NewsUserControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>
