@@ -26,10 +26,13 @@ namespace Dentistry.Pages
         private Entities.Client _currentClient;
         private byte[] _previewData;
 
-        public RegPage(Entities.User selectedUser /*, Entities.Client selectedClient*/)
+
+        public RegPage(Entities.User selectedUser)
         {
             InitializeComponent();
 
+
+           
 
             if (selectedUser != null)
             {
@@ -49,14 +52,6 @@ namespace Dentistry.Pages
                 }
             }
 
-            //if (selectedClient !=null)
-            //{
-            //    _currentClient = selectedClient;
-            //    TBoxSerie.Text = _currentClient.SeriesOfPassportClient;
-            //    TBoxNumber.Text = _currentClient.NumberOfPassportClient;
-            //    TBoxPhoneNumber.Text = _currentClient.PhoneNumberClient;
-
-            //}
 
         }
 
@@ -64,12 +59,15 @@ namespace Dentistry.Pages
         {
             var currentClient = AppData.Context.Clients.ToList();
             var currentUser = AppData.Context.Users.ToList();
+
+           
         }
        
 
        public void BtnReg_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentUser != null /*&& _currentClient != null*/)
+          
+            if (_currentUser != null)
             {
 
                 _currentUser.NameUser = TBoxName.Text;
@@ -78,7 +76,11 @@ namespace Dentistry.Pages
                 _currentUser.DateOfBirthUser = DtpBirthDate.SelectedDate;
                 _currentUser.LoginUser = TBoxLogin.Text;
                 _currentUser.PasswordUser = PBoxPass.Password;
-                 
+                _currentUser.Client.SeriesOfPassportClient = TBoxSerie.Text;
+                _currentUser.Client.NumberOfPassportClient = TBoxNumber.Text;
+                _currentUser.Client.PhoneNumberClient = TBoxPhoneNumber.Text;
+
+
 
 
                 if (_previewData != null)
@@ -90,9 +92,7 @@ namespace Dentistry.Pages
                 NavigationService.GoBack();
 
 
-                //_currentClient.SeriesOfPassportClient = TBoxSerie.Text;
-                //_currentClient.NumberOfPassportClient = TBoxNumber.Text;
-                //_currentClient.PhoneNumberClient = TBoxPhoneNumber.Text;
+              
 
 
             }
@@ -101,19 +101,10 @@ namespace Dentistry.Pages
             {
                 if (TBoxName.Text != "" && TBoxNumber.Text != "" && TBoxLastName.Text != "" && TBoxPhoneNumber.Text != "" && TBoxSerie.Text != "")
                 {
-                    _currentClient = new Entities.Client
-                    {
-                        IdClient = AppData.Context.Clients.ToList().Max(P => P.IdClient) + 1,
-                       SeriesOfPassportClient = TBoxSerie.Text,
-                        NumberOfPassportClient = TBoxNumber.Text,
-                        PhoneNumberClient = TBoxPhoneNumber.Text
-                    };
+                  
 
-                    AppData.Context.Clients.Add(_currentClient);
-                    UpdateData();
-                    AppData.Context.SaveChanges();
-                    
-
+                    var hashClass = new Classes.SHA1Hashing();
+                    var hashedpass = hashClass.HashString(PBoxPass.Password);
 
                     _currentUser = new Entities.User
                     {
@@ -124,7 +115,14 @@ namespace Dentistry.Pages
                         DateOfBirthUser = DtpBirthDate.SelectedDate,
                         IdPosition = 2,
                         LoginUser = TBoxLogin.Text,
-                        PasswordUser = PBoxPass.Password
+                       Client = new Entities.Client
+                       {
+                           IdClient = AppData.Context.Clients.ToList().Max(P => P.IdClient) + 1,
+                           SeriesOfPassportClient = TBoxSerie.Text,
+                           NumberOfPassportClient = TBoxNumber.Text,
+                           PhoneNumberClient = TBoxPhoneNumber.Text
+                       },
+                        PasswordUser = hashedpass
                     };
 
 
@@ -134,7 +132,10 @@ namespace Dentistry.Pages
                     AppData.Context.Users.Add(_currentUser);
                     UpdateData();
                     AppData.Context.SaveChanges();
-                    MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    if(MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk)==MessageBoxResult.OK)
+                    {
+                        NavigationService.GoBack();
+                    }    
                 }
                 else
                 {
@@ -159,6 +160,22 @@ namespace Dentistry.Pages
             }
 
             ImagePreview.DataContext = _previewData;
+        }
+
+        private void OnConfPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PBoxComfPass.Password.Length > 0)
+                TBlockComfPass.Visibility = Visibility.Collapsed;
+            else
+                TBlockComfPass.Visibility = Visibility.Visible;
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PBoxPass.Password.Length > 0)
+                TBlockPass.Visibility = Visibility.Collapsed;
+            else
+                TBlockPass.Visibility = Visibility.Visible;
         }
     }
 }

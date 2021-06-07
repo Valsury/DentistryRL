@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DentistryRLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="IdAuthor" />
+    </Key>
+    <Property Name="IdAuthor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameAuthor" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="IdClient" />
+    </Key>
+    <Property Name="IdClient" Type="int" Nullable="false" />
+    <Property Name="SeriesOfPassportClient" Type="nvarchar" MaxLength="15" />
+    <Property Name="NumberOfPassportClient" Type="nvarchar" MaxLength="15" />
+    <Property Name="PhoneNumberClient" Type="nvarchar" MaxLength="20" />
+    <Property Name="AddressClient" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ClientCoupon">
+    <Key>
+      <PropertyRef Name="IdClientCoupon" />
+    </Key>
+    <Property Name="IdClientCoupon" Type="int" Nullable="false" />
+    <Property Name="ComplaintClientCoupon" Type="nvarchar(max)" />
+    <Property Name="IdUser" Type="int" />
+    <Property Name="DateOfTheApplication" Type="date" />
+  </EntityType>
+  <EntityType Name="ClientToothCollection">
+    <Key>
+      <PropertyRef Name="IdClientToothCollection" />
+    </Key>
+    <Property Name="IdClientToothCollection" Type="int" Nullable="false" />
+    <Property Name="IdClient" Type="int" />
+    <Property Name="IdTooth" Type="int" />
+    <Property Name="IdToothStatus" Type="int" />
+    <Property Name="IdUser" Type="int" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="IdDepartment" />
+    </Key>
+    <Property Name="IdDepartment" Type="int" Nullable="false" />
+    <Property Name="NameDepartment" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IdDoctor" />
+    </Key>
+    <Property Name="IdDoctor" Type="int" Nullable="false" />
+    <Property Name="WorkExperienceDoctor" Type="nvarchar" MaxLength="30" />
+    <Property Name="PhoneNumberDoctor" Type="nvarchar" MaxLength="20" />
+    <Property Name="IdDepartment" Type="int" />
+    <Property Name="EducationDoctor" Type="nvarchar(max)" />
+    <Property Name="EmploymentDateDoctor" Type="date" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="IdNews" />
+    </Key>
+    <Property Name="IdNews" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="HeaderNews" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="TextNews" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreationDateNews" Type="date" Nullable="false" />
+    <Property Name="PhotoNews" Type="image" />
+    <Property Name="IdAuthor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="IdPosition" />
+    </Key>
+    <Property Name="IdPosition" Type="int" Nullable="false" />
+    <Property Name="NamePosition" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Reception">
+    <Key>
+      <PropertyRef Name="IdReception" />
+    </Key>
+    <Property Name="IdReception" Type="int" Nullable="false" />
+    <Property Name="DateReception" Type="date" />
+    <Property Name="IdClient" Type="int" />
+    <Property Name="IdDoctor" Type="int" />
+    <Property Name="IdService" Type="int" />
+    <Property Name="DiagnosisReception" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="IdService" />
+    </Key>
+    <Property Name="IdService" Type="int" Nullable="false" />
+    <Property Name="NameService" Type="nvarchar" MaxLength="30" />
+    <Property Name="PriceService" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tooth">
+    <Key>
+      <PropertyRef Name="IdTooth" />
+    </Key>
+    <Property Name="IdTooth" Type="int" Nullable="false" />
+    <Property Name="PhotoTooth" Type="image" />
+    <Property Name="NameTooth" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ToothStatus">
+    <Key>
+      <PropertyRef Name="IdToothStatus" />
+    </Key>
+    <Property Name="IdToothStatus" Type="int" Nullable="false" />
+    <Property Name="NameToothStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="AbbreviationToothStatus" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="NameUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastNameUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="PatronymicUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateOfBirthUser" Type="date" />
+    <Property Name="IdPosition" Type="int" />
+    <Property Name="LoginUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="PasswordUser" Type="nvarchar(max)" />
+    <Property Name="PreviewUser" Type="varbinary(max)" />
+    <Property Name="IdClient" Type="int" />
+    <Property Name="IdDoctor" Type="int" />
+    <Property Name="GenderUser" Type="nchar" MaxLength="1" />
+    <Property Name="ProfessionUser" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="FK_ClientCoupon_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ClientCoupon" Type="Self.ClientCoupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="ClientCoupon">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="ClientToothCollection" Type="Self.ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_Tooth">
+    <End Role="Tooth" Type="Self.Tooth" Multiplicity="0..1" />
+    <End Role="ClientToothCollection" Type="Self.ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tooth">
+        <PropertyRef Name="IdTooth" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdTooth" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_ToothStatus">
+    <End Role="ToothStatus" Type="Self.ToothStatus" Multiplicity="0..1" />
+    <End Role="ClientToothCollection" Type="Self.ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToothStatus">
+        <PropertyRef Name="IdToothStatus" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdToothStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_User1">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ClientToothCollection" Type="Self.ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="IdDepartment" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="IdDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_Author">
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="IdAuthor" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="IdAuthor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Doctor1">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Service1">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="IdService" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdService" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="IdPosition" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DentistryRLModelStoreContainer">
+    <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientCoupon" EntityType="Self.ClientCoupon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientToothCollection" EntityType="Self.ClientToothCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reception" EntityType="Self.Reception" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tooth" EntityType="Self.Tooth" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToothStatus" EntityType="Self.ToothStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ClientCoupon_User" Association="Self.FK_ClientCoupon_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ClientCoupon" EntitySet="ClientCoupon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_Client" Association="Self.FK_ClientToothCollection_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_Tooth" Association="Self.FK_ClientToothCollection_Tooth">
+      <End Role="Tooth" EntitySet="Tooth" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_ToothStatus" Association="Self.FK_ClientToothCollection_ToothStatus">
+      <End Role="ToothStatus" EntitySet="ToothStatus" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_User1" Association="Self.FK_ClientToothCollection_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Department" Association="Self.FK_Doctor_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_News_Author" Association="Self.FK_News_Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Client" Association="Self.FK_Reception_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Reception" EntitySet="Reception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Doctor" Association="Self.FK_Reception_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Reception" EntitySet="Reception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Doctor1" Association="Self.FK_Reception_Doctor1">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Reception" EntitySet="Reception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Service1" Association="Self.FK_Reception_Service1">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Reception" EntitySet="Reception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Client" Association="Self.FK_User_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Doctor" Association="Self.FK_User_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Position" Association="Self.FK_User_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

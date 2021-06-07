@@ -24,38 +24,46 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             {
-                DGridUsers.ItemsSource = AppData.Context.Clients.ToList();
-                DGridUsers.ItemsSource = AppData.Context.Users.ToList();
+
+
+
+                DGridUsers.ItemsSource = AppData.Context.Users.ToList().Where(p=>p.IdPosition==2);
+
+
+
+
 
             }
 
         }
 
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DGridUsers.ItemsSource = AppData.Context.Users.ToList().Where(p => p.IdPosition == 2);
+        }
+
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string keyWord = TBoxSearch.Text.ToLower();
-            DGridUsers.ItemsSource = AppData.Context.Clients.ToList()
-                .Where(p =>
-                p.SeriesOfPassportClient.ToLower().Contains(keyWord) ||
-                p.NumberOfPassportClient.ToLower().Contains(keyWord) ||
-                p.PhoneNumberClient.ToLower().Contains(keyWord)).ToList();
 
-
-
-           // DGridUsers.ItemsSource = AppData.Context.Users.ToList()
-           //.Where(p =>
-           //p.NameUser.ToLower().Contains(keyWord) ||
-           //p.LastNameUser.ToLower().Contains(keyWord) ||
-           //p.PatronymicUser.ToLower().Contains(keyWord) ||
-           //p.DateOfBirthUser.ToString().Contains(keyWord)).ToList();
+            DGridUsers.ItemsSource = AppData.Context.Users.ToList().Where(p => p.IdPosition == 2)
+           .Where(p =>
+           p.NameUser.ToLower().Contains(keyWord) ||
+           p.LastNameUser.ToLower().Contains(keyWord) ||
+           p.PatronymicUser.ToLower().Contains(keyWord) ||
+           p.Client.SeriesOfPassportClient.ToLower().Contains(keyWord) ||
+           p.Client.NumberOfPassportClient.ToLower().Contains(keyWord) ||
+           p.Client.PhoneNumberClient.ToLower().Contains(keyWord) ||
+           p.DateOfBirthUser.ToString().Contains(keyWord)).ToList();
 
 
         }
 
         private void UpdateItems()
         {
+           
+            var allUsers = AppData.Context.Users.ToList().Where(p=>p.IdPosition==2);
             var allClients = AppData.Context.Clients.ToList();
-            var allUsers = AppData.Context.Users.ToList();
             switch (ComboFilter.SelectedIndex)
             {
                 case 0:
@@ -66,25 +74,25 @@ namespace Dentistry.Pages
                     allUsers = allUsers.OrderBy(p => p.LastNameUser).ToList();
                     break;
 
-                case 3:
+                case 2:
                     allUsers = allUsers.OrderBy(p => p.PatronymicUser).ToList();
                     break;
 
-                case 4:
+                case 3:
                     allUsers = allUsers.OrderBy(p => p.DateOfBirthUser).ToList();
                     break;
 
-                //case 5:
-                //    allClients = allClients.OrderBy(p => p.SeriesOfPassportClient).ToList();
-                //    break;
+                case 4:
+                    allClients = allClients.OrderBy(p => p.SeriesOfPassportClient).ToList();
+                    break;
 
-                //case 6:
-                //    allClients = allClients.OrderBy(p => p.NumberOfPassportClient).ToList();
-                //    break;
+                case 5:
+                    allClients = allClients.OrderBy(p => p.NumberOfPassportClient).ToList();
+                    break;
 
-                //case 7:
-                //    allClients = allClients.OrderBy(p => p.PhoneNumberClient).ToList();
-                //    break;
+                case 6:
+                    allClients = allClients.OrderBy(p => p.PhoneNumberClient).ToList();
+                    break;
 
                 default:
                     allClients = allClients.OrderBy(p => p.IdClient).ToList();
@@ -104,7 +112,7 @@ namespace Dentistry.Pages
 
         private void BtnChangeData_Click(object sender, RoutedEventArgs e)
         {
-            if (DGridUsers.SelectedItem is Entities.User currentUser /*&& DGridUsers.SelectedItem is Entities.User currentClient*/)
+            if (DGridUsers.SelectedItem is Entities.User currentUser)
             {
                 NavigationService.Navigate(new RegPage(currentUser));
 
@@ -124,16 +132,23 @@ namespace Dentistry.Pages
 
         private void BtnDeleteData_Click(object sender, RoutedEventArgs e)
         {
-            if (DGridUsers.SelectedItem is Entities.User currentUser && DGridUsers.SelectedItem is Entities.User currentClient)
+            if (DGridUsers.SelectedItem is Entities.User currentUser /*&& DGridUsers.SelectedItem is Entities.Client currentClient*/)
             {
+
+
                 if(MessageBox.Show("Вы действительно хотите удалить данные?","Внимание",MessageBoxButton.YesNo,MessageBoxImage.Warning)==MessageBoxResult.Yes)
                 {
+
+                    
                     AppData.Context.Users.Remove(currentUser);
-                    AppData.Context.Users.Remove(currentClient);
                     AppData.Context.SaveChanges();
                     AppData.Context.Users.ToList();
                     AppData.Context.Clients.ToList();
-                    MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    if(MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk)==MessageBoxResult.OK)
+                    {
+                        DGridUsers.Visibility = Visibility.Hidden;
+                        DGridUsers.Visibility = Visibility.Visible;
+                    }
 
                 }
             }
@@ -144,6 +159,10 @@ namespace Dentistry.Pages
             NavigationService.Navigate(new ReportPage());
         }
 
-     
+        private void DGridUsers_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DGridUsers.DataContext = null;
+            DGridUsers.ItemsSource = AppData.Context.Users.ToList().Where(p => p.IdPosition == 2);
+        }
     }
 }

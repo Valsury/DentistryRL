@@ -10,10 +10,42 @@
     <Page.Resources>
         <ControlTemplate x:Key="validationFailed">
             <StackPanel Orientation="Horizontal">
-           
-               
             </StackPanel>
         </ControlTemplate>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="PBoxPass" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Style.Resources>
+                <VisualBrush  x:Key="Bg1" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Foreground="Gray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+                <VisualBrush  x:Key="Bg2" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Content="" Foreground="LightGray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FF585858"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="Width" Value="175"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <EventSetter Event="PasswordChanged" Handler="OnPasswordChanged"></EventSetter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border CornerRadius="10" x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="LightGray">
+                            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0" ScrollViewer.CanContentScroll="True" x:Name="PART_ContentHost"/>
+                        </Border>
+               
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -21,17 +53,27 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBox Name="TBoxLogin"  Text="{Binding Login}" Style="{StaticResource TboxLogin}" TextChanged="TBoxLogin_TextChanged" ></TextBox>
 
-                <PasswordBox Name="TBoxPassword" Style="{StaticResource PBoxPass}"> </PasswordBox>
+                <Grid>
+                    <PasswordBox Name="PBoxPassword" Style="{StaticResource PBoxPass}">
+                        
+                    </PasswordBox>
+                    <TextBlock Name="TBlockPass" IsHitTestVisible="False" Text="Пароль" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
+                </Grid>
+               
             </StackPanel>
 
             <CheckBox Name="CheckRemebmer" Content="Запомнить меня" HorizontalAlignment="Center"></CheckBox>
-            <Button Name="BtnNavigate" Height="30" Width="175" Content="Войти"  Click="BtnNavigate_Click" HorizontalAlignment="Center">
+            <Button IsDefault="True" Name="BtnNavigate" Height="30" Width="175" Content="Войти"  Click="BtnNavigate_Click" HorizontalAlignment="Center">
               
             </Button>
             <TextBlock Style="{StaticResource LinkText}" HorizontalAlignment="Center">
                У вас ещё нет аккаунта? <Hyperlink Click="Hyperlink_Click">Зарегистрироваться</Hyperlink>
             </TextBlock>
+            
+            
         </StackPanel>
         <Button x:Name="BtnNews" HorizontalAlignment="Left" VerticalAlignment="Top" Content="О нас" Click="BtnNews_Click"></Button>
     </Grid>
+    
+   
 </Page>

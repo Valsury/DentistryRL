@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Dentistry.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900" Background="White"
-      Title="Информация о пользователях">
+      Title="Информация о пациентах" IsVisibleChanged="Page_IsVisibleChanged">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" x:Name="DGridUsers" AutoGenerateColumns="False">
+        <DataGrid IsVisibleChanged="DGridUsers_IsVisibleChanged" Grid.Row="1" x:Name="DGridUsers" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="*" Header="Фото">
                     <DataGridTemplateColumn.CellTemplate>
@@ -24,11 +24,13 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Width="*" Header="Роль" Binding="{Binding Position.NamePosition}"/>
                 <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding NameUser}"/>
                 <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding LastNameUser}"/>
                 <DataGridTextColumn Width="*" Header="Отчество" Binding="{Binding PatronymicUser}"/>
-                <DataGridTextColumn Width="*" Header="Дата рождения" Binding="{Binding DateOfBirthUser}"/>
+                <DataGridTextColumn Width="*" Header="Дата рождения" Binding="{Binding DateOfBirthUser, StringFormat={}dd.MM.yyyy}"/>
+                <DataGridTextColumn Width="*" Header="Cерия паспотра" Binding="{Binding Client.SeriesOfPassportClient}"/>
+                <DataGridTextColumn Width="*" Header="Номер паспорта" Binding="{Binding Client.NumberOfPassportClient}"/>
+                <DataGridTextColumn Width="*" Header="Номер телефона" Binding="{Binding Client.PhoneNumberClient}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -37,14 +39,14 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock HorizontalAlignment="Right" TextAlignment="Right" Text="Сортировка по:" Style="{StaticResource CommonText}" Width="160"></TextBlock>
-            <ComboBox HorizontalAlignment="Right" Name="ComboFilter" SelectionChanged="ComboFilter_SelectionChanged" SelectedIndex="0">
+            <ComboBox IsEditable="True" Background="White" FontFamily="Times New Roman" FontSize="14" HorizontalAlignment="Right" Name="ComboFilter" SelectionChanged="ComboFilter_SelectionChanged" SelectedIndex="0">
                 <ComboBoxItem Content="Имя"></ComboBoxItem>
                 <ComboBoxItem Content="Фамилия"></ComboBoxItem>
                 <ComboBoxItem Content="Отчество"></ComboBoxItem>
                 <ComboBoxItem Content="Дата рождения"></ComboBoxItem>
-                <!--<ComboBoxItem Content="Серия паспорта"></ComboBoxItem>
+                <ComboBoxItem Content="Серия паспорта"></ComboBoxItem>
                 <ComboBoxItem Content="Номер паспорта"></ComboBoxItem>
-                <ComboBoxItem Content="Номер телефона"></ComboBoxItem>-->
+                <ComboBoxItem Content="Номер телефона"></ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">

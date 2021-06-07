@@ -14,6 +14,13 @@ namespace Dentistry.Entities
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.ClientCoupons = new HashSet<ClientCoupon>();
+            this.ClientToothCollections = new HashSet<ClientToothCollection>();
+        }
+    
         public int IdUser { get; set; }
         public string NameUser { get; set; }
         public string LastNameUser { get; set; }
@@ -25,7 +32,15 @@ namespace Dentistry.Entities
         public byte[] PreviewUser { get; set; }
         public Nullable<int> IdClient { get; set; }
         public Nullable<int> IdDoctor { get; set; }
+        public string GenderUser { get; set; }
+        public string ProfessionUser { get; set; }
     
+        public virtual Client Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientCoupon> ClientCoupons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientToothCollection> ClientToothCollections { get; set; }
+        public virtual Doctor Doctor { get; set; }
         public virtual Position Position { get; set; }
     }
 }

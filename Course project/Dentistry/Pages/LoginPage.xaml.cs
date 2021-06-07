@@ -20,20 +20,29 @@ namespace Dentistry
     /// </summary>
     public partial class LoginPage : Page
     {
-        PersonModel _validation;
         public LoginPage()
         {
             InitializeComponent();
-            _validation = new PersonModel();
-            this.DataContext = _validation;
+
+            //хэширование паролей в базе
+            //    var allusers = AppData.Context.Users.ToList();
+            //    var hashing = new Classes.SHA1Hashing();
+            //    foreach (var user in allusers)
+            //    {
+            //        user.PasswordUser = hashing.HashString(user.PasswordUser);
+            //    }
+            //    AppData.Context.SaveChanges();
         }
+
 
         private void BtnNavigate_Click(object sender, RoutedEventArgs e)
         {
 
-            if (TBoxLogin.Text != "" && TBoxPassword.Password != "")
+            var hashedPass = new Classes.SHA1Hashing().HashString(PBoxPassword.Password);
+
+            if (TBoxLogin.Text != "" && PBoxPassword.Password != "")
             {
-                var currentUser = AppData.Context.Users.ToList().FirstOrDefault(p => p.LoginUser == TBoxLogin.Text && p.PasswordUser == TBoxPassword.Password);
+                var currentUser = AppData.Context.Users.ToList().FirstOrDefault(p => p.LoginUser == TBoxLogin.Text && p.PasswordUser == hashedPass);
 
                 if (currentUser != null)
                 {
@@ -54,6 +63,7 @@ namespace Dentistry
 
         private void NavigateUser(Entities.User currentUser)
         {
+            AppData.CurrentUser = currentUser;
             switch (currentUser.IdPosition)
             {
                 case 1:
@@ -63,8 +73,14 @@ namespace Dentistry
 
                 case 2:
                     SaveUserSettings(currentUser.IdUser, CheckRemebmer.IsChecked.Value);
-                    //NavigationService.Navigate(new Pages.PersonalAreaPage());
-                    MessageBox.Show("Функция недоступна!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    NavigationService.Navigate(new Pages.PersonalAreaPage(null));
+                    break;
+
+                case 3:
+                    SaveUserSettings(currentUser.IdUser, CheckRemebmer.IsChecked.Value);
+                    NavigationService.Navigate(new Pages.DoctorPage());
+
+                    //MessageBox.Show("Функция недоступна!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
 
                 default:
@@ -73,14 +89,24 @@ namespace Dentistry
             }
         }
 
-        private void SaveUserSettings(int id, bool isCheked)
+        public void SaveUserSettings(int id, bool isChecked)
         {
-            if (isCheked)
+            Entities.User user = new Entities.User();
+            if (isChecked)
             {
-                Properties.Settings.Default.UserID = id;
-                Properties.Settings.Default.Save();
+                if (user.IdPosition != 4)
+                {
+                    Properties.Settings.Default.UserID = id;
+                    Properties.Settings.Default.Save();
+                }
             }
-
+            else
+            {
+                if (user.IdPosition != 4)
+                {
+                    Properties.Settings.Default.UserID = id;
+                }
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -105,16 +131,27 @@ namespace Dentistry
         private void TBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            //_validation.Login = TBoxLogin.Text;
-            _validation.CheckError("Login");
 
-            //DataContext = null;
-            //DataContext = _validation;
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Pages.RegPage(null));
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+
+
+
+            if (PBoxPassword.Password.Length > 0)
+            {
+                TBlockPass.Visibility = Visibility.Collapsed;
+
+            }
+
+            else
+                TBlockPass.Visibility = Visibility.Visible;
         }
     }
 }

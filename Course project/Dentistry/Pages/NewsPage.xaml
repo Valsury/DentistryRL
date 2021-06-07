@@ -7,19 +7,20 @@
       xmlns:usercontrols="clr-namespace:Dentistry.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="White"
-      Title="NewsPage">
+      Title="О нас">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="1"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Автор: " Style="{StaticResource CommonText}"></TextBlock>
-            <ComboBox SelectedIndex="0" Name="ComboAuthors" DisplayMemberPath="NameAuthor" SelectionChanged="ComboAuthors_SelectionChanged"></ComboBox>
+            <ComboBox IsEditable="True" Background="White" FontFamily="Times New Roman" FontSize="14"  SelectedIndex="0" Name="ComboAuthors" DisplayMemberPath="NameAuthor" SelectionChanged="ComboAuthors_SelectionChanged"></ComboBox>
             <TextBlock Text="Сортировать по: " Style="{StaticResource CommonText}"></TextBlock>
-            <ComboBox  Name="ComboSort" SelectedIndex="0" SelectionChanged="ComboSort_SelectionChanged">
+            <ComboBox IsEditable="True" Background="White" FontFamily="Times New Roman" FontSize="14"  Name="ComboSort" SelectedIndex="0" SelectionChanged="ComboSort_SelectionChanged">
                 <ComboBoxItem Content="Заголовок"></ComboBoxItem>
                 <ComboBoxItem Content="Текст"></ComboBoxItem>
                 <ComboBoxItem Content="Дата публикации"></ComboBoxItem>
@@ -42,6 +43,10 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        
+        <StackPanel Visibility="Collapsed" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <RadioButton Content="Экспорт в XLSX" Name="RbXLSX"></RadioButton>
+            <RadioButton Content="Экспорт в CSV" Name="RbCSV"></RadioButton>
+            <Button Name="BtnExport" Content="Экспорт" Click="BtnExport_Click"></Button>
+        </StackPanel>
     </Grid>
 </Page>

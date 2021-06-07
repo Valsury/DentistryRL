@@ -3,12 +3,508 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Dentistry.Pages"
+      xmlns:local="clr-namespace:Dentistry.Pages" xmlns:usercontrols="clr-namespace:Dentistry.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="White"
-      Title="Личный кабинет">
+      d:DesignHeight="450" d:DesignWidth="800" Background="LightGray"
+      Title="Личный кабинет" Loaded="Page_Loaded">
+
+
+    <Page.Resources>
+        <Style TargetType="{x:Type PasswordBox}" x:Key="PBoxComfPass"  xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Style.Resources>
+                <VisualBrush  x:Key="Bg1" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Foreground="Gray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+                <VisualBrush  x:Key="Bg2" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Content="" Foreground="Gray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FF585858"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="Width" Value="175"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <EventSetter Event="PasswordChanged" Handler="OnConfPasswordChanged"></EventSetter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border CornerRadius="10" x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Gray">
+                            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0" ScrollViewer.CanContentScroll="True" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFD0D0D0"/>
+                                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding Path=Password}" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource Bg2}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Path=Password}" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource Bg1}" />
+                            </DataTrigger>
+
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="PBoxPass" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Style.Resources>
+                <VisualBrush  x:Key="Bg1" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Foreground="Gray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+                <VisualBrush  x:Key="Bg2" AlignmentX="Left" AlignmentY="Center" Stretch="None" >
+                    <VisualBrush.Visual>
+                        <Label Content="" Foreground="LightGray" Margin="5,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FF585858"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="Width" Value="175"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <EventSetter Event="PasswordChanged" Handler="OnPasswordChanged"></EventSetter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border CornerRadius="10" x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="LightGray">
+                            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0" ScrollViewer.CanContentScroll="True" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFD0D0D0"/>
+                                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding Path=Password}" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource Bg2}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Path=Password}" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource Bg1}" />
+                            </DataTrigger>
+
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
 
     <Grid>
-        <TextBlock Text="{Binding Author.NameAuthor}" Style="{StaticResource CommonText}"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="500"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Margin="0 60 0 0">
+            <StackPanel  
+                    Margin="10" 
+                    Orientation="Horizontal" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left">
+                <Border
+                Width="auto"
+                Height="155">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#FFFBE1AF" Offset="0.1"/>
+                            <GradientStop Color="#FFCD9C47" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <Border.Clip>
+                        <RectangleGeometry 
+                        RadiusX="10"                
+                        RadiusY="10"
+                              Rect="0,0,300,200">
+                        </RectangleGeometry>
+                    </Border.Clip>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+
+                        <StackPanel Grid.Row="1" Margin="0 35 0 0" >
+                            <TextBlock Margin="10,0,10,0" 
+                                   Text="{Binding LastNameUser}" 
+                                   Style="{StaticResource HeaderText}"
+                                   ></TextBlock>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="10,0,3,0" 
+                                   Text="{Binding NameUser}" 
+                                   Style="{StaticResource HeaderText}"
+                                   ></TextBlock>
+
+                                <TextBlock Margin="1,0,10,0" 
+                                   Text="{Binding PatronymicUser}" 
+                                   Style="{StaticResource HeaderText}"
+                                   ></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                Margin="10,5,10,0"
+                                TextAlignment="Left"
+                                Foreground="Gray"
+                                Style="{StaticResource CommonText}"
+                                HorizontalAlignment="Left"
+                                Text="Дата рождения: "
+                                    FontSize="14"
+                                Width="auto"
+                                ></TextBlock>
+
+                                    <TextBlock Grid.Column="1" Margin="1,5,10,0" 
+                                   Text="{Binding DateOfBirthUser,
+                                StringFormat={}dd.MM.yyyy}" 
+                                   Style="{StaticResource CommonText}"
+                                           FontSize="14"
+                                       TextAlignment="Left"
+                                       Width="auto"
+                                   ></TextBlock>
+
+
+                                    <TextBlock 
+                                        Grid.Row="1"
+                                Margin="10,5,10,0"
+                                TextAlignment="Left"
+                                        FontSize="14"
+                                Foreground="Gray"
+                                Style="{StaticResource CommonText}"
+                                HorizontalAlignment="Left"
+                                Text="Пол: "
+                                Width="auto"
+                                ></TextBlock>
+
+                                    <TextBlock Margin="1,5,10,0" 
+                                               Grid.Row="1"
+                                               Grid.Column="1"
+                                   Text="{Binding GenderUser}" 
+                                   Style="{StaticResource CommonText}"
+                                       TextAlignment="Left"
+                                               FontSize="14"
+                                       Width="auto"
+                                   ></TextBlock>
+
+
+                                    <TextBlock 
+                                        Grid.Row="2"
+                                Margin="10,5,10,0"
+                                TextAlignment="Left"
+                                        FontSize="14"
+                                Foreground="Gray"
+                                Style="{StaticResource CommonText}"
+                                HorizontalAlignment="Left"
+                                Text="Моб. Телефон: "
+                                Width="auto"
+                                ></TextBlock>
+
+                                    <TextBlock Margin="1,5,10,0" 
+                                               Grid.Row="2"
+                                               Grid.Column="2"
+                                   Text="{Binding Client.PhoneNumberClient}" 
+                                   Style="{StaticResource CommonText}"
+                                       TextAlignment="Left"
+                                               FontSize="14"
+                                       Width="auto"
+                                   ></TextBlock>
+
+                                </Grid>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Grid.Column="1"
+              Grid.ColumnSpan="2"
+              Height="30"
+              Width="415"
+              VerticalAlignment="Top"
+              Background="White"
+              Margin="10 10 10 0">
+            
+            <StackPanel Orientation="Horizontal">
+                
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Dentistry;component/Assets/info.png"
+                       Height="20"></Image>
+                    <TextBlock Height="20">
+                    <Hyperlink
+                        Name="HLinkPersonalInfo"
+                        Click="HLinkPersonalInfo_Click">Персональная информация</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Dentistry;component/Assets/ToothIco.png"
+                       Height="20"></Image>
+                    <TextBlock Height="20">
+                    <Hyperlink
+                        Name="HLinkTeethCard"
+                        Click="HLinkTeethCard_Click">Зубная карта</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Dentistry;component/Assets/AppointmentIco.png"
+                       Height="20"></Image>
+                    <TextBlock Height="20">
+                    <Hyperlink Click="Hyperlink_Click">Запись на прием</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+            </StackPanel>
+            
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Left" Grid.RowSpan="2">
+            <Border                          
+                            Margin="20"
+                            Width="140"
+                            Height="120"
+                            Background="White"
+                            >
+                <Grid>
+                    <Image Name="ImgPreview" Source="{Binding PreviewUser}"                                   
+                                       ></Image>
+                </Grid>
+
+                <Border.Clip>
+                    <RectangleGeometry 
+                        RadiusX="20"                
+                        RadiusY="10"
+                              Rect="0,0,300,200">
+                    </RectangleGeometry>
+                </Border.Clip>
+            </Border>
+        </StackPanel>
+
+
+        <Grid 
+            Name="GridCanvas"
+            Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Background="White"
+            Width="700"
+            Margin="10 10 0 0"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            
+            <StackPanel Grid.Column="1"  
+                        Margin="50 60 0 0"
+                        Width="170">
+                <TextBlock Style="{StaticResource CommonText}"
+                 TextAlignment="Justify"
+                    Width="150">З - Здоров
+                </TextBlock>
+                <TextBlock
+                    Style="{StaticResource CommonText}"
+                    TextAlignment="Justify"
+                    Width="150">Т - Требуется лечение</TextBlock>
+                <TextBlock
+                    Style="{StaticResource CommonText}"
+                    TextAlignment="Justify"
+                    Width="150">И - Имплант</TextBlock>
+                <TextBlock
+                    Style="{StaticResource CommonText}"
+                    TextAlignment="Justify"
+                    Width="150">В - Вылечен</TextBlock>
+                <TextBlock
+                    Style="{StaticResource CommonText}"
+                    TextAlignment="Justify"
+                    Width="150">У - Удален</TextBlock>
+                <TextBlock Name="text"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid
+            Name="GridEditInfo"
+               Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Background="White"
+            Width="700"
+            Margin="10 10 0 0"
+            Visibility="Collapsed"
+            >
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Text="{Binding LastNameUser}" Name="TBoxLastName" Style="{StaticResource TboxLastname}"></TextBox>
+                            <TextBox Text="{Binding NameUser}" Name="TBoxName" Style="{StaticResource TboxUsername}"></TextBox>
+                            <TextBox Text="{Binding PatronymicUser}" Name="TBoxPatronymic" Style="{StaticResource TboxPatronymic}"></TextBox>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <DatePicker  Name="DtpBirthDate" SelectedDate="{Binding DateOfBirthUser}">
+                            </DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Text="{Binding Client.SeriesOfPassportClient}" Name="TBoxSerie" Style="{StaticResource TboxSeries}" ></TextBox>
+                            <TextBox Text="{Binding Client.NumberOfPassportClient}" Name="TBoxNumber" Style="{StaticResource TboxNumber}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Text="{Binding Client.PhoneNumberClient}" Name="TBoxPhoneNumber" Style="{StaticResource TboxPhonenumber}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Text="{Binding LoginUser}" Name="TBoxLogin" Style="{StaticResource TboxLogin}"></TextBox>
+                            <Grid Name="GridPass">
+                                <PasswordBox Name="PBoxPass" Style="{StaticResource PBoxPass}" ></PasswordBox>
+                                <TextBlock Name="TBlockPass" IsHitTestVisible="False" Text="Пароль" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <PasswordBox Name="PBoxComfPass" Style="{StaticResource PBoxComfPass}" HorizontalContentAlignment="Left" ></PasswordBox>
+                                <TextBlock Name="TBlockComfPass" IsHitTestVisible="False" Text="Подтверждение пароля" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
+                            </Grid>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="5" Background="SkyBlue" 
+                                        Content="Выбрать изображение" 
+                                        Name="BtnChooseImg" 
+                                        Click="BtnChooseImg_Click" >
+                                </Button>
+
+                                <Button Margin="5" Background="SkyBlue" 
+                                        Content="Изменить" 
+                                        Name="BtnEditInfo" 
+                                        Click="BtnEditInfo_Click" >
+                                </Button>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+
+               
+            </Grid>
+        </Grid>
+        
+        <Grid
+            Grid.Column="1"
+            Grid.Row="2"
+            Background="White"
+            Width="800"
+            Height="130"
+            Margin="10 0 0 0"
+            ></Grid>
+
+
+        <Canvas Name="CanvasTeeth" Grid.Column="1" Grid.Row="1" Margin="-240 -60 0 0" >
+            <usercontrols:ToothStatusUserControl x:Name="Tooth11" Tag="11" Source="/Dentistry;component/Assets/Teeth/11.png" Canvas.Left="353" Canvas.Top="84" Margin="0" Width="29" Height="37" MouseEnter="Tooth_MouseEnter"></usercontrols:ToothStatusUserControl>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth12"  Tag="12" Source="/Dentistry;component/Assets/Teeth/12.png" Canvas.Left="328" Canvas.Top="87" Margin="0" Width="36" Height="45" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth13"  Tag="13" Source="/Dentistry;component/Assets/Teeth/13.png" Canvas.Left="313" Canvas.Top="102" Margin="0" Width="30" Height="38" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth14"  Tag="14" Source="/Dentistry;component/Assets/Teeth/14.png" Canvas.Left="300" Canvas.Top="110" Margin="0" Width="29" Height="48" MouseEnter="Tooth_MouseEnter"></usercontrols:ToothStatusUserControl>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth15"  Tag="15" Source="/Dentistry;component/Assets/Teeth/15.png" Canvas.Left="291" Canvas.Top="127" Margin="0" Width="29" Height="48" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth16"  Tag="16" Source="/Dentistry;component/Assets/Teeth/16.png" Canvas.Left="282" Canvas.Top="143" Margin="0" Width="34" Height="56" MouseEnter="Tooth_MouseEnter" MouseLeave="Tooth_MouseLeave"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth17"  Tag="17" Source="/Dentistry;component/Assets/Teeth/17.png" Canvas.Left="276" Canvas.Top="166" Margin="0" Width="33" Height="55" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="0.233,0.533"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth18"  Tag="18" Source="/Dentistry;component/Assets/Teeth/18.png" Canvas.Left="272" Canvas.Top="190" Margin="0" Width="33" Height="56" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="-0.033,0.667"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth21"  Tag="21" Source="/Dentistry;component/Assets/Teeth/21.png" Canvas.Left="377" Canvas.Top="78" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth22"  Tag="22" Source="/Dentistry;component/Assets/Teeth/22.png" Canvas.Left="402" Canvas.Top="89" Margin="0" Width="24" Height="43" RenderTransformOrigin="0.5,0.5" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth23"  Tag="23" Source="/Dentistry;component/Assets/Teeth/23.png" Canvas.Left="418" Canvas.Top="97" Margin="0" Width="29" Height="47" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth24"  Tag="24" Source="/Dentistry;component/Assets/Teeth/24.png" Canvas.Left="428" Canvas.Top="110" Margin="0" Width="29" Height="48" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth25"  Tag="25" Source="/Dentistry;component/Assets/Teeth/25.png" Canvas.Left="437" Canvas.Top="126" Margin="0" Width="29" Height="48" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="0.5,0.567"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth26"  Tag="26" Source="/Dentistry;component/Assets/Teeth/26.png" Canvas.Left="440" Canvas.Top="143" Margin="0" Width="34" Height="56" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="1.733,0.844"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth27"  Tag="27" Source="/Dentistry;component/Assets/Teeth/27.png" Canvas.Left="448" Canvas.Top="166" Margin="0" Width="33" Height="55" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth28"  Tag="28" Source="/Dentistry;component/Assets/Teeth/28.png" Canvas.Left="450" Canvas.Top="190" Margin="0" Width="33" Height="56" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="1.167,0.833"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth31"  Tag="31" Source="/Dentistry;component/Assets/Teeth/31.png" Canvas.Left="364" Canvas.Top="371" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="0.256,2.4"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth32"  Tag="32" Source="/Dentistry;component/Assets/Teeth/32.png" Canvas.Left="380" Canvas.Top="366" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth33"  Tag="33" Source="/Dentistry;component/Assets/Teeth/33.png" Canvas.Left="394" Canvas.Top="354" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="-0.389,2.522"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth34"  Tag="34" Source="/Dentistry;component/Assets/Teeth/34.png" Canvas.Left="412" Canvas.Top="342" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="-0.311,2.011"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth35"  Tag="35" Source="/Dentistry;component/Assets/Teeth/35.png" Canvas.Left="424" Canvas.Top="330" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth36"  Tag="36" Source="/Dentistry;component/Assets/Teeth/36.png" Canvas.Left="436" Canvas.Top="307" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth37"  Tag="37" Source="/Dentistry;component/Assets/Teeth/37.png" Canvas.Left="446" Canvas.Top="282" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"></usercontrols:ToothStatusUserControl>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth38"  Tag="38" Source="/Dentistry;component/Assets/Teeth/38.png" Canvas.Left="452" Canvas.Top="250" Margin="0" Width="33" Height="55" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="0.606,0.455"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth41"  Tag="41" Source="/Dentistry;component/Assets/Teeth/41.png" Canvas.Left="347" Canvas.Top="371" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth42"  Tag="42" Source="/Dentistry;component/Assets/Teeth/42.png" Canvas.Left="330" Canvas.Top="367" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth43"  Tag="43" Source="/Dentistry;component/Assets/Teeth/43.png" Canvas.Left="317" Canvas.Top="354" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth44"  Tag="44" Source="/Dentistry;component/Assets/Teeth/44.png" Canvas.Left="304" Canvas.Top="342" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth45"  Tag="45" Source="/Dentistry;component/Assets/Teeth/45.png" Canvas.Left="292" Canvas.Top="327" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth46"  Tag="46" Source="/Dentistry;component/Assets/Teeth/46.png" Canvas.Left="283" Canvas.Top="303" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth47"  Tag="47" Source="/Dentistry;component/Assets/Teeth/47.png" Canvas.Left="274" Canvas.Top="278" Margin="0" Width="30" Height="50" MouseEnter="Tooth_MouseEnter"/>
+            <usercontrols:ToothStatusUserControl x:Name="Tooth48"  Tag="48" Source="/Dentistry;component/Assets/Teeth/48.png" Canvas.Left="265" Canvas.Top="245" Margin="0" Width="35" Height="58" MouseEnter="Tooth_MouseEnter" RenderTransformOrigin="0.406,0.163"/>
+        </Canvas>
+        
+        
     </Grid>
 </Page>

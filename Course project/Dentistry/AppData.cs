@@ -8,6 +8,7 @@ namespace Dentistry
 {
     class AppData
     {
-        public static Entities.DentistryRLEntities1 Context = new Entities.DentistryRLEntities1();
+        public static Entities.DentistryRLEntitiesColl Context = new Entities.DentistryRLEntitiesColl();
+        public static Entities.User CurrentUser;
     }
 }

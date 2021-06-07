@@ -12,10 +12,32 @@
     <EntitySetMapping Name="Clients">
       <EntityTypeMapping TypeName="DentistryRLModel1.Client">
         <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="AddressClient" ColumnName="AddressClient" />
           <ScalarProperty Name="PhoneNumberClient" ColumnName="PhoneNumberClient" />
           <ScalarProperty Name="NumberOfPassportClient" ColumnName="NumberOfPassportClient" />
           <ScalarProperty Name="SeriesOfPassportClient" ColumnName="SeriesOfPassportClient" />
           <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientCoupons">
+      <EntityTypeMapping TypeName="DentistryRLModel1.ClientCoupon">
+        <MappingFragment StoreEntitySet="ClientCoupon">
+          <ScalarProperty Name="DateOfTheApplication" ColumnName="DateOfTheApplication" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="ComplaintClientCoupon" ColumnName="ComplaintClientCoupon" />
+          <ScalarProperty Name="IdClientCoupon" ColumnName="IdClientCoupon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientToothCollections">
+      <EntityTypeMapping TypeName="DentistryRLModel1.ClientToothCollection">
+        <MappingFragment StoreEntitySet="ClientToothCollection">
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdToothStatus" ColumnName="IdToothStatus" />
+          <ScalarProperty Name="IdTooth" ColumnName="IdTooth" />
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="IdClientToothCollection" ColumnName="IdClientToothCollection" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -88,9 +110,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Teeth">
+      <EntityTypeMapping TypeName="DentistryRLModel1.Tooth">
+        <MappingFragment StoreEntitySet="Tooth">
+          <ScalarProperty Name="NameTooth" ColumnName="NameTooth" />
+          <ScalarProperty Name="PhotoTooth" ColumnName="PhotoTooth" />
+          <ScalarProperty Name="IdTooth" ColumnName="IdTooth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToothStatus">
+      <EntityTypeMapping TypeName="DentistryRLModel1.ToothStatu">
+        <MappingFragment StoreEntitySet="ToothStatus">
+          <ScalarProperty Name="AbbreviationToothStatus" ColumnName="AbbreviationToothStatus" />
+          <ScalarProperty Name="NameToothStatus" ColumnName="NameToothStatus" />
+          <ScalarProperty Name="IdToothStatus" ColumnName="IdToothStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DentistryRLModel1.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ProfessionUser" ColumnName="ProfessionUser" />
+          <ScalarProperty Name="GenderUser" ColumnName="GenderUser" />
           <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
           <ScalarProperty Name="IdClient" ColumnName="IdClient" />
           <ScalarProperty Name="PreviewUser" ColumnName="PreviewUser" />

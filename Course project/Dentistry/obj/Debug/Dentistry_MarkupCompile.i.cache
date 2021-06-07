@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\valsu\OneDrive\Desktop\Лобынцев\Dentistry\obj\Debug\
+C:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\obj\Debug\
 Dentistry
 none
 false
 DEBUG;TRACE
-C:\Users\valsu\OneDrive\Desktop\Лобынцев\Dentistry\App.xaml
-101512729757
-41629481368
-37-114378317
-27136065857
-Pages\AdminMenuPage.xaml;Pages\InfoAboutReceptionsPage.xaml;Pages\InfoAboutUsersPage.xaml;Pages\LoginPage.xaml;MainWindow.xaml;Pages\NewsPage.xaml;Pages\PersonalAreaPage.xaml;Pages\RegPage.xaml;Pages\ReportPage.xaml;UserControls\NewsUserControl.xaml;
+C:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\App.xaml
+18-1820488633
+22012425350
+45838949030
+29-2019832905
+Pages\AddReceptionPage.xaml;Pages\AdminMenuPage.xaml;Pages\CurrentReceptionsPage.xaml;Pages\DoctorPage.xaml;Pages\EditDoctorPage.xaml;Pages\InfoAboutDoctorsPage.xaml;Pages\InfoAboutReceptionsPage.xaml;Pages\InfoAboutUsersPage.xaml;Pages\LoginPage.xaml;MainWindow.xaml;Pages\MedicalCouponPage.xaml;Pages\NewsPage.xaml;Pages\PersonalAreaPage.xaml;Pages\RegPage.xaml;Pages\ReportClientPage.xaml;Pages\ReportDoctorPage.xaml;UserControls\NewsUserControl.xaml;UserControls\ToothStatusUserControl.xaml;
 
-True
+False
 

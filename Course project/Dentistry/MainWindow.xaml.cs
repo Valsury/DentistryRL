@@ -24,8 +24,8 @@ namespace Dentistry
         public MainWindow()
         {
             InitializeComponent();
-            //var currentNews = AppData.Context.News.ToList()[0];
-            //currentNews.PhotoNews = File.ReadAllBytes(@"C:\Users\Student28\Desktop\1.jpg");
+            //var cuurentTooth = AppData.Context.Teeth.ToList()[31];
+            //cuurentTooth.PhotoTooth = File.ReadAllBytes(@"C:\Users\valsu\OneDrive\Desktop\Teeth\48.png");
             MainFrame.Navigate(new LoginPage());
             AppData.Context.SaveChanges();
         }
@@ -33,9 +33,9 @@ namespace Dentistry
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
 
-            var page =MainFrame.Content as Page;
+            var page = MainFrame.Content as Page;
 
-            if (page is AdminMenuPage || page is Pages.PersonalAreaPage)
+            if (page is AdminMenuPage || page is Pages.PersonalAreaPage || page is Pages.DoctorPage)
             {
                 Properties.Settings.Default.UserID = 0;
                 Properties.Settings.Default.Save();
@@ -44,7 +44,7 @@ namespace Dentistry
             if (MainFrame.CanGoBack)
                 MainFrame.GoBack();
 
-           
+
         }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
@@ -53,15 +53,40 @@ namespace Dentistry
 
             if (page is LoginPage)
             {
-                BtnBack.Visibility = Visibility.Hidden;
+                BtnBack.Visibility = Visibility.Collapsed;
+                BtnExit.Visibility = Visibility.Visible;
             }
             else
             {
                 BtnBack.Visibility = Visibility.Visible;
-
+                BtnExit.Visibility = Visibility.Collapsed;
             }
 
-            
+            if (page is LoginPage)
+            {
+                ImgLogo.Visibility = Visibility.Visible;
+                TBlockTitle.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                ImgLogo.Visibility = Visibility.Collapsed;
+                TBlockTitle.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch { }
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

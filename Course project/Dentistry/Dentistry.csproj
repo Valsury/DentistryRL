@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.AeroLite" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -80,71 +81,90 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\SHA1Hashing.cs" />
     <Compile Include="Entities\Author.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Client.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ClientCoupon.cs">
+      <DependentUpon>ModelCollege.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ClientPartial.cs" />
+    <Compile Include="Entities\ClientToothCollection.cs">
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Department.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Doctor.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Model1.Context.cs">
+    <Compile Include="Entities\DoctorPartial.cs" />
+    <Compile Include="Entities\ModelCollege.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>ModelCollege.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Model1.cs">
+    <Compile Include="Entities\ModelCollege.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Model1.Designer.cs">
+    <Compile Include="Entities\ModelCollege.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>ModelCollege.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\News.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Position.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Reception.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Service.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tooth.cs">
+      <DependentUpon>ModelCollege.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ToothStatu.cs">
+      <DependentUpon>ModelCollege.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelCollege.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserPartial.cs" />
+    <Compile Include="Pages\AddReceptionPage.xaml.cs">
+      <DependentUpon>AddReceptionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CurrentReceptionsPage.xaml.cs">
+      <DependentUpon>CurrentReceptionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DoctorPage.xaml.cs">
+      <DependentUpon>DoctorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditDoctorPage.xaml.cs">
+      <DependentUpon>EditDoctorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InfoAboutDoctorsPage.xaml.cs">
+      <DependentUpon>InfoAboutDoctorsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\InfoAboutReceptionsPage.xaml.cs">
       <DependentUpon>InfoAboutReceptionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\InfoAboutUsersPage.xaml.cs">
       <DependentUpon>InfoAboutUsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MedicalCouponPage.xaml.cs">
+      <DependentUpon>MedicalCouponPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
@@ -155,15 +175,39 @@
     <Compile Include="Pages\RegPage.xaml.cs">
       <DependentUpon>RegPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ReportPage.xaml.cs">
-      <DependentUpon>ReportPage.xaml</DependentUpon>
+    <Compile Include="Pages\ReportClientPage.xaml.cs">
+      <DependentUpon>ReportClientPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonModel.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Pages\ReportDoctorPage.xaml.cs">
+      <DependentUpon>ReportDoctorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NewsUserControl.xaml.cs">
       <DependentUpon>NewsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ToothStatusUserControl.xaml.cs">
+      <DependentUpon>ToothStatusUserControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Pages\AddReceptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CurrentReceptionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DoctorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EditDoctorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InfoAboutDoctorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,6 +242,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\MedicalCouponPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\NewsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,11 +258,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ReportPage.xaml">
+    <Page Include="Pages\ReportClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportDoctorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NewsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ToothStatusUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,21 +293,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Entities\BaseModel.edmx">
+    <EntityDeploy Include="Entities\ModelCollege.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BaseModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelCollege.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entities\BaseModel.edmx.diagram">
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Entities\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entities\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <None Include="ClassDiagram.cd" />
+    <None Include="Entities\ModelCollege.edmx.diagram">
+      <DependentUpon>ModelCollege.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Pages\ClassDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -261,26 +312,56 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Dentistry.png" />
-    <Content Include="Entities\BaseModel.Context.tt">
+    <Resource Include="Assets\Teeth\11-red.png" />
+    <Resource Include="Assets\Teeth\11.png" />
+    <Resource Include="Assets\Teeth\12.png" />
+    <Resource Include="Assets\Teeth\13.png" />
+    <Resource Include="Assets\Teeth\14.png" />
+    <Resource Include="Assets\Teeth\15.png" />
+    <Resource Include="Assets\Teeth\16.png" />
+    <Resource Include="Assets\Teeth\17.png" />
+    <Resource Include="Assets\Teeth\18.png" />
+    <Resource Include="Assets\Teeth\21.png" />
+    <Resource Include="Assets\Teeth\22-green.png" />
+    <Resource Include="Assets\Teeth\22.png" />
+    <Resource Include="Assets\Teeth\23.png" />
+    <Resource Include="Assets\Teeth\24.png" />
+    <Resource Include="Assets\Teeth\25.png" />
+    <Resource Include="Assets\Teeth\26.png" />
+    <Resource Include="Assets\Teeth\27.png" />
+    <Resource Include="Assets\Teeth\28.png" />
+    <Resource Include="Assets\Teeth\31.png" />
+    <Resource Include="Assets\Teeth\32.png" />
+    <Resource Include="Assets\Teeth\33-gray.png" />
+    <Resource Include="Assets\Teeth\33.png" />
+    <Resource Include="Assets\Teeth\34.png" />
+    <Resource Include="Assets\Teeth\35.png" />
+    <Resource Include="Assets\Teeth\36.png" />
+    <Resource Include="Assets\Teeth\37.png" />
+    <Resource Include="Assets\Teeth\38.png" />
+    <Resource Include="Assets\Teeth\41.png" />
+    <Resource Include="Assets\Teeth\42.png" />
+    <Resource Include="Assets\Teeth\43.png" />
+    <Resource Include="Assets\Teeth\44-skyblue.png" />
+    <Resource Include="Assets\Teeth\44.png" />
+    <Resource Include="Assets\Teeth\45.png" />
+    <Resource Include="Assets\Teeth\46.png" />
+    <Resource Include="Assets\Teeth\47.png" />
+    <Resource Include="Assets\Teeth\48.png" />
+    <Resource Include="Assets\info.png" />
+    <Resource Include="Assets\ToothIco.png" />
+    <Resource Include="Assets\DentistryLogo.png" />
+    <Resource Include="Assets\MedicalCouponClient.jpg" />
+    <Resource Include="Assets\AppointmentIco.png" />
+    <Content Include="Entities\ModelCollege.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-      <LastGenOutput>BaseModel.Context.cs</LastGenOutput>
+      <DependentUpon>ModelCollege.edmx</DependentUpon>
+      <LastGenOutput>ModelCollege.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\BaseModel.tt">
+    <Content Include="Entities\ModelCollege.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-      <LastGenOutput>BaseModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>ModelCollege.edmx</DependentUpon>
+      <LastGenOutput>ModelCollege.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -296,10 +377,19 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Word">
       <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>8</VersionMajor>
-      <VersionMinor>7</VersionMinor>
+      <VersionMinor>6</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

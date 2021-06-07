@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DentistryRLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DentistryRLEntitiesColl" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="DentistryRLModel.Author" />
+    <EntitySet Name="Clients" EntityType="DentistryRLModel.Client" />
+    <EntitySet Name="ClientCoupons" EntityType="DentistryRLModel.ClientCoupon" />
+    <EntitySet Name="ClientToothCollections" EntityType="DentistryRLModel.ClientToothCollection" />
+    <EntitySet Name="Departments" EntityType="DentistryRLModel.Department" />
+    <EntitySet Name="Doctors" EntityType="DentistryRLModel.Doctor" />
+    <EntitySet Name="News" EntityType="DentistryRLModel.News" />
+    <EntitySet Name="Positions" EntityType="DentistryRLModel.Position" />
+    <EntitySet Name="Receptions" EntityType="DentistryRLModel.Reception" />
+    <EntitySet Name="Services" EntityType="DentistryRLModel.Service" />
+    <EntitySet Name="sysdiagrams" EntityType="DentistryRLModel.sysdiagram" />
+    <EntitySet Name="Teeth" EntityType="DentistryRLModel.Tooth" />
+    <EntitySet Name="ToothStatus" EntityType="DentistryRLModel.ToothStatu" />
+    <EntitySet Name="Users" EntityType="DentistryRLModel.User" />
+    <AssociationSet Name="FK_News_Author" Association="DentistryRLModel.FK_News_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_Client" Association="DentistryRLModel.FK_ClientToothCollection_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Client" Association="DentistryRLModel.FK_Reception_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Reception" EntitySet="Receptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Client" Association="DentistryRLModel.FK_User_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCoupon_User" Association="DentistryRLModel.FK_ClientCoupon_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ClientCoupon" EntitySet="ClientCoupons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_Tooth" Association="DentistryRLModel.FK_ClientToothCollection_Tooth">
+      <End Role="Tooth" EntitySet="Teeth" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_ToothStatus" Association="DentistryRLModel.FK_ClientToothCollection_ToothStatus">
+      <End Role="ToothStatu" EntitySet="ToothStatus" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientToothCollection_User1" Association="DentistryRLModel.FK_ClientToothCollection_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ClientToothCollection" EntitySet="ClientToothCollections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Department" Association="DentistryRLModel.FK_Doctor_Department">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Doctor" Association="DentistryRLModel.FK_Reception_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Reception" EntitySet="Receptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Doctor1" Association="DentistryRLModel.FK_Reception_Doctor1">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Reception" EntitySet="Receptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Doctor" Association="DentistryRLModel.FK_User_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Position" Association="DentistryRLModel.FK_User_Position">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reception_Service1" Association="DentistryRLModel.FK_Reception_Service1">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="Reception" EntitySet="Receptions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="IdAuthor" />
+    </Key>
+    <Property Name="IdAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="News" Relationship="DentistryRLModel.FK_News_Author" FromRole="Author" ToRole="News" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="IdClient" />
+    </Key>
+    <Property Name="IdClient" Type="Int32" Nullable="false" />
+    <Property Name="SeriesOfPassportClient" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="NumberOfPassportClient" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AddressClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_Client" FromRole="Client" ToRole="ClientToothCollection" />
+    <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Client" FromRole="Client" ToRole="Reception" />
+    <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Client" FromRole="Client" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ClientCoupon">
+    <Key>
+      <PropertyRef Name="IdClientCoupon" />
+    </Key>
+    <Property Name="IdClientCoupon" Type="Int32" Nullable="false" />
+    <Property Name="ComplaintClientCoupon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdUser" Type="Int32" />
+    <Property Name="DateOfTheApplication" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="User" Relationship="DentistryRLModel.FK_ClientCoupon_User" FromRole="ClientCoupon" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ClientToothCollection">
+    <Key>
+      <PropertyRef Name="IdClientToothCollection" />
+    </Key>
+    <Property Name="IdClientToothCollection" Type="Int32" Nullable="false" />
+    <Property Name="IdClient" Type="Int32" />
+    <Property Name="IdTooth" Type="Int32" />
+    <Property Name="IdToothStatus" Type="Int32" />
+    <Property Name="IdUser" Type="Int32" />
+    <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_ClientToothCollection_Client" FromRole="ClientToothCollection" ToRole="Client" />
+    <NavigationProperty Name="Tooth" Relationship="DentistryRLModel.FK_ClientToothCollection_Tooth" FromRole="ClientToothCollection" ToRole="Tooth" />
+    <NavigationProperty Name="ToothStatu" Relationship="DentistryRLModel.FK_ClientToothCollection_ToothStatus" FromRole="ClientToothCollection" ToRole="ToothStatu" />
+    <NavigationProperty Name="User" Relationship="DentistryRLModel.FK_ClientToothCollection_User1" FromRole="ClientToothCollection" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="IdDepartment" />
+    </Key>
+    <Property Name="IdDepartment" Type="Int32" Nullable="false" />
+    <Property Name="NameDepartment" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Doctors" Relationship="DentistryRLModel.FK_Doctor_Department" FromRole="Department" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IdDoctor" />
+    </Key>
+    <Property Name="IdDoctor" Type="Int32" Nullable="false" />
+    <Property Name="WorkExperienceDoctor" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberDoctor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IdDepartment" Type="Int32" />
+    <Property Name="EducationDoctor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmploymentDateDoctor" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Department" Relationship="DentistryRLModel.FK_Doctor_Department" FromRole="Doctor" ToRole="Department" />
+    <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Doctor" FromRole="Doctor" ToRole="Reception" />
+    <NavigationProperty Name="Receptions1" Relationship="DentistryRLModel.FK_Reception_Doctor1" FromRole="Doctor" ToRole="Reception" />
+    <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Doctor" FromRole="Doctor" ToRole="User" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="IdNews" />
+    </Key>
+    <Property Name="IdNews" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HeaderNews" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TextNews" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDateNews" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PhotoNews" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdAuthor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Author" Relationship="DentistryRLModel.FK_News_Author" FromRole="News" ToRole="Author" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="IdPosition" />
+    </Key>
+    <Property Name="IdPosition" Type="Int32" Nullable="false" />
+    <Property Name="NamePosition" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Position" FromRole="Position" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Reception">
+    <Key>
+      <PropertyRef Name="IdReception" />
+    </Key>
+    <Property Name="IdReception" Type="Int32" Nullable="false" />
+    <Property Name="DateReception" Type="DateTime" Precision="0" />
+    <Property Name="IdClient" Type="Int32" />
+    <Property Name="IdDoctor" Type="Int32" />
+    <Property Name="IdService" Type="Int32" />
+    <Property Name="DiagnosisReception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_Reception_Client" FromRole="Reception" ToRole="Client" />
+    <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_Reception_Doctor" FromRole="Reception" ToRole="Doctor" />
+    <NavigationProperty Name="Doctor1" Relationship="DentistryRLModel.FK_Reception_Doctor1" FromRole="Reception" ToRole="Doctor" />
+    <NavigationProperty Name="Service" Relationship="DentistryRLModel.FK_Reception_Service1" FromRole="Reception" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="IdService" />
+    </Key>
+    <Property Name="IdService" Type="Int32" Nullable="false" />
+    <Property Name="NameService" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PriceService" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Service1" FromRole="Service" ToRole="Reception" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tooth">
+    <Key>
+      <PropertyRef Name="IdTooth" />
+    </Key>
+    <Property Name="IdTooth" Type="Int32" Nullable="false" />
+    <Property Name="PhotoTooth" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="NameTooth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_Tooth" FromRole="Tooth" ToRole="ClientToothCollection" />
+  </EntityType>
+  <EntityType Name="ToothStatu">
+    <Key>
+      <PropertyRef Name="IdToothStatus" />
+    </Key>
+    <Property Name="IdToothStatus" Type="Int32" Nullable="false" />
+    <Property Name="NameToothStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AbbreviationToothStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_ToothStatus" FromRole="ToothStatu" ToRole="ClientToothCollection" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="NameUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastNameUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PatronymicUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirthUser" Type="DateTime" Precision="0" />
+    <Property Name="IdPosition" Type="Int32" />
+    <Property Name="LoginUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PreviewUser" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdClient" Type="Int32" />
+    <Property Name="IdDoctor" Type="Int32" />
+    <Property Name="GenderUser" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="ProfessionUser" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_User_Client" FromRole="User" ToRole="Client" />
+    <NavigationProperty Name="ClientCoupons" Relationship="DentistryRLModel.FK_ClientCoupon_User" FromRole="User" ToRole="ClientCoupon" />
+    <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_User1" FromRole="User" ToRole="ClientToothCollection" />
+    <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_User_Doctor" FromRole="User" ToRole="Doctor" />
+    <NavigationProperty Name="Position" Relationship="DentistryRLModel.FK_User_Position" FromRole="User" ToRole="Position" />
+  </EntityType>
+  <Association Name="FK_News_Author">
+    <End Type="DentistryRLModel.Author" Role="Author" Multiplicity="1" />
+    <End Type="DentistryRLModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="IdAuthor" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="IdAuthor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_Client">
+    <End Type="DentistryRLModel.Client" Role="Client" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.ClientToothCollection" Role="ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Client">
+    <End Type="DentistryRLModel.Client" Role="Client" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.Reception" Role="Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Client">
+    <End Type="DentistryRLModel.Client" Role="Client" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCoupon_User">
+    <End Type="DentistryRLModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.ClientCoupon" Role="ClientCoupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="ClientCoupon">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_Tooth">
+    <End Type="DentistryRLModel.Tooth" Role="Tooth" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.ClientToothCollection" Role="ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tooth">
+        <PropertyRef Name="IdTooth" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdTooth" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_ToothStatus">
+    <End Type="DentistryRLModel.ToothStatu" Role="ToothStatu" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.ClientToothCollection" Role="ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToothStatu">
+        <PropertyRef Name="IdToothStatus" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdToothStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientToothCollection_User1">
+    <End Type="DentistryRLModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.ClientToothCollection" Role="ClientToothCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="ClientToothCollection">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Department">
+    <End Type="DentistryRLModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="IdDepartment" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="IdDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Doctor">
+    <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.Reception" Role="Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Doctor1">
+    <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.Reception" Role="Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Doctor">
+    <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Position">
+    <End Type="DentistryRLModel.Position" Role="Position" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="IdPosition" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reception_Service1">
+    <End Type="DentistryRLModel.Service" Role="Service" Multiplicity="0..1" />
+    <End Type="DentistryRLModel.Reception" Role="Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="IdService" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdService" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

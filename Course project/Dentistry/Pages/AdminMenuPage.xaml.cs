@@ -36,5 +36,10 @@ namespace Dentistry
         {
             NavigationService.Navigate(new Pages.InfoAboutReceptionsPage());
         }
+
+        private void BtnInfoDoctors_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Pages.InfoAboutDoctorsPage());
+        }
     }
 }

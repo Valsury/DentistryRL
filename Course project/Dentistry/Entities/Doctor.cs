@@ -18,15 +18,23 @@ namespace Dentistry.Entities
         public Doctor()
         {
             this.Receptions = new HashSet<Reception>();
+            this.Receptions1 = new HashSet<Reception>();
+            this.Users = new HashSet<User>();
         }
     
         public int IdDoctor { get; set; }
         public string WorkExperienceDoctor { get; set; }
         public string PhoneNumberDoctor { get; set; }
         public Nullable<int> IdDepartment { get; set; }
+        public string EducationDoctor { get; set; }
+        public Nullable<System.DateTime> EmploymentDateDoctor { get; set; }
     
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Receptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reception> Receptions1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

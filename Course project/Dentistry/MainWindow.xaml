@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dentistry"
         mc:Ignorable="d"
-        Title="{Binding ElementName=MainFrame, Path=Content.Title}" MinHeight="450" MinWidth="800"> 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Title="{Binding ElementName=MainFrame, Path=Content.Title}" MinHeight="600" Height="600" MinWidth="1000" Width="1000"> 
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -20,10 +24,14 @@
 
         <Frame Grid.Row="2" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
 
-        <Button Content="Назад" HorizontalAlignment="Right" Name="BtnBack" Click="BtnBack_Click" Height="30" Width="100" Visibility="Hidden"></Button>
+        <Button Content="&#xE711;" HorizontalAlignment="Right" Name="BtnBack" Click="BtnBack_Click" Height="30" Width="auto" Padding="4 0" Margin="15 0"  Visibility="Hidden"
+                FontFamily="Segoe MDL2 Assets" Foreground="Black" FontWeight="Bold" BorderThickness="0" Background="White" FontSize="25" ></Button>
 
-        <Image Source="Assets/Dentistry.png" HorizontalAlignment="Left" Margin="10 0"></Image>
-        <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource HeaderText}"></TextBlock>
+        <Button Content="&#xE711;" HorizontalAlignment="Right" Name="BtnExit" Click="BtnExit_Click" Height="30" Width="auto" Padding="4 0" Margin="15 0"  Visibility="Hidden"
+                FontFamily="Segoe MDL2 Assets" Foreground="Black" FontWeight="Bold" BorderThickness="0" Background="White" FontSize="25" ></Button>
+
+        <Image AutomationProperties.ItemStatus="public" Source="Assets/DentistryLogo.png" HorizontalAlignment="Left" Margin="10 0" Name="ImgLogo"></Image>
+        <TextBlock Name="TBlockTitle" Text="{Binding ElementName=MainFrame, Path=Content.Title}" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource HeaderText}"></TextBlock>
     </Grid>
 </Window>
 

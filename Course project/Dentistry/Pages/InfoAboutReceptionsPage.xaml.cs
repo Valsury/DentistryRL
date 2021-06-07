@@ -25,8 +25,11 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             {
+                AppData.Context.Users.ToList();
                 DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
-                    
+
+
+
             }
 
         }
@@ -36,10 +39,13 @@ namespace Dentistry.Pages
             string keyWord = TBoxSearch.Text.ToLower();
             DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList()
                 .Where(p =>
+                p.Client.FullNameClient.ToLower().Contains(keyWord) ||
+                p.Doctor.FullNameDoctor.ToLower().Contains(keyWord) ||
+                p.DiagnosisReception.ToLower().Contains(keyWord) ||
                 p.DateReception.ToString().Contains(keyWord) ||
-                p.IdClient.ToString().Contains(keyWord) ||
-                p.IdDoctor.ToString().Contains(keyWord) ||
-                p.IdService.ToString().Contains(keyWord)).ToList();
+                p.Service.NameService.ToLower().Contains(keyWord) ||
+                p.Service.PriceService.ToString().Contains(keyWord)
+                ).ToList();
         }
 
         private void UpdateItems()
@@ -52,15 +58,23 @@ namespace Dentistry.Pages
                     break;
 
                 case 1:
-                    allReceptions = allReceptions.OrderBy(p => p.IdClient).ToList();
+                    allReceptions = allReceptions.OrderBy(p => p.Doctor.FullNameDoctor).ToList();
+                    break;
+
+                case 2:
+                    allReceptions = allReceptions.OrderBy(p => p.Client.FullNameClient).ToList();
                     break;
 
                 case 3:
-                    allReceptions = allReceptions.OrderBy(p => p.IdDoctor).ToList();
+                    allReceptions = allReceptions.OrderBy(p => p.Service.NameService).ToList();
                     break;
 
                 case 4:
-                    allReceptions = allReceptions.OrderBy(p => p.IdService).ToList();
+                    allReceptions = allReceptions.OrderBy(p => p.DiagnosisReception).ToList();
+                    break;
+
+                case 5:
+                    allReceptions = allReceptions.OrderBy(p => p.Service.PriceService).ToList();
                     break;
 
                 default:
@@ -84,7 +98,7 @@ namespace Dentistry.Pages
             var application = new Word.Application();
             Word.Document document = application.Documents.Add();
 
-            foreach(var reception in allReceptions)
+            foreach (var reception in allReceptions)
             {
                 Word.Paragraph receptionParagraph = document.Paragraphs.Add();
                 Word.Range receptionRange = receptionParagraph.Range;
@@ -107,13 +121,13 @@ namespace Dentistry.Pages
                 cellRange = paymentsTable.Cell(1, 2).Range;
                 cellRange.Text = "Код врача";
                 cellRange = paymentsTable.Cell(1, 3).Range;
-                cellRange.Text = "Код пациента";      
-       
+                cellRange.Text = "Код пациента";
+
                 paymentsTable.Rows[1].Range.Bold = 1;
                 paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
 
 
-                for(int i =0; i<allReceptions.Count();i++)
+                for (int i = 0; i < allReceptions.Count(); i++)
                 {
                     var currentReception = allReceptions[i];
 
@@ -137,7 +151,53 @@ namespace Dentistry.Pages
             application.Visible = true;
 
             document.SaveAs2(@"D:\Test.docx");
-            document.SaveAs2(@"D:\Test.pdf",Word.WdExportFormat.wdExportFormatPDF);
+            document.SaveAs2(@"D:\Test.pdf", Word.WdExportFormat.wdExportFormatPDF);
+        }
+
+        private void BtnAddData_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddReceptionPage(null));
+        }
+
+        private void BtnChangeData_Click(object sender, RoutedEventArgs e)
+        {
+            if (DGridReceptions.SelectedItem is Entities.Reception currentReception)
+                NavigationService.Navigate(new AddReceptionPage(currentReception));
+        }
+
+        private void BtnDeleteData_Click(object sender, RoutedEventArgs e)
+        {
+            if (DGridReceptions.SelectedItem is Entities.Reception currentReception)
+            {
+
+                if (MessageBox.Show("Вы действительно хотите удалить данные?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+
+
+                    AppData.Context.Receptions.Remove(currentReception);
+                    AppData.Context.SaveChanges();
+                    AppData.Context.Users.ToList();
+                    AppData.Context.Clients.ToList();
+                   if( MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk) == MessageBoxResult.OK)
+                    {
+                        DGridReceptions.Visibility = Visibility.Hidden;
+                        DGridReceptions.Visibility = Visibility.Visible;
+                    }
+
+
+                }
+            }
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
+        }
+
+        private void DGridReceptions_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DGridReceptions.DataContext = null;
+            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
         }
     }
 }

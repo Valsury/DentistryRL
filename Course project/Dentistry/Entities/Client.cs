@@ -17,15 +17,22 @@ namespace Dentistry.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
+            this.ClientToothCollections = new HashSet<ClientToothCollection>();
             this.Receptions = new HashSet<Reception>();
+            this.Users = new HashSet<User>();
         }
     
         public int IdClient { get; set; }
         public string SeriesOfPassportClient { get; set; }
         public string NumberOfPassportClient { get; set; }
         public string PhoneNumberClient { get; set; }
+        public string AddressClient { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientToothCollection> ClientToothCollections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Receptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
