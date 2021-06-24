@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DentistryRLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="IdAppointment" />
+          </Key>
+          <Property Name="IdAppointment" Type="int" Nullable="false" />
+          <Property Name="IdClient" Type="int" />
+          <Property Name="IdDoctor" Type="int" />
+          <Property Name="ComplaintAppointment" Type="nvarchar(max)" />
+          <Property Name="DateAppointment" Type="datetime" />
+          <Property Name="IdUser" Type="int" />
+        </EntityType>
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="IdAuthor" />
@@ -21,15 +32,10 @@
           <Property Name="NumberOfPassportClient" Type="nvarchar" MaxLength="15" />
           <Property Name="PhoneNumberClient" Type="nvarchar" MaxLength="20" />
           <Property Name="AddressClient" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="ClientCoupon">
-          <Key>
-            <PropertyRef Name="IdClientCoupon" />
-          </Key>
-          <Property Name="IdClientCoupon" Type="int" Nullable="false" />
-          <Property Name="ComplaintClientCoupon" Type="nvarchar(max)" />
-          <Property Name="IdUser" Type="int" />
-          <Property Name="DateOfTheApplication" Type="date" />
+          <Property Name="ChronicDiseases" Type="nvarchar(max)" />
+          <Property Name="PastDiseases" Type="nvarchar(max)" />
+          <Property Name="CurrentDiseases" Type="nvarchar(max)" />
+          <Property Name="BadHabit" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ClientToothCollection">
           <Key>
@@ -57,7 +63,15 @@
           <Property Name="PhoneNumberDoctor" Type="nvarchar" MaxLength="20" />
           <Property Name="IdDepartment" Type="int" />
           <Property Name="EducationDoctor" Type="nvarchar(max)" />
-          <Property Name="EmploymentDateDoctor" Type="date" />
+          <Property Name="EmploymentDateDoctor" Type="datetime" />
+          <Property Name="DescriptionDoctor" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="int" Nullable="false" />
+          <Property Name="NameGender" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -82,11 +96,13 @@
             <PropertyRef Name="IdReception" />
           </Key>
           <Property Name="IdReception" Type="int" Nullable="false" />
-          <Property Name="DateReception" Type="date" />
+          <Property Name="DateReception" Type="datetime" />
           <Property Name="IdClient" Type="int" />
           <Property Name="IdDoctor" Type="int" />
           <Property Name="IdService" Type="int" />
           <Property Name="DiagnosisReception" Type="nvarchar(max)" />
+          <Property Name="IdAppointment" Type="int" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -95,16 +111,6 @@
           <Property Name="IdService" Type="int" Nullable="false" />
           <Property Name="NameService" Type="nvarchar" MaxLength="30" />
           <Property Name="PriceService" Type="decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tooth">
           <Key>
@@ -137,17 +143,52 @@
           <Property Name="PreviewUser" Type="varbinary(max)" />
           <Property Name="IdClient" Type="int" />
           <Property Name="IdDoctor" Type="int" />
-          <Property Name="GenderUser" Type="nchar" MaxLength="1" />
+          <Property Name="IdGender" Type="int" />
           <Property Name="ProfessionUser" Type="nvarchar" MaxLength="30" />
         </EntityType>
-        <Association Name="FK_ClientCoupon_User">
+        <EntityType Name="XrayReception">
+          <Key>
+            <PropertyRef Name="IdXrayReception" />
+          </Key>
+          <Property Name="IdXrayReception" Type="int" Nullable="false" />
+          <Property Name="IdTooth" Type="int" />
+          <Property Name="IdClient" Type="int" />
+          <Property Name="IdDoctor" Type="int" />
+          <Property Name="PreviewXray" Type="varbinary(max)" />
+          <Property Name="DateOfXray" Type="date" />
+        </EntityType>
+        <Association Name="FK_Appointment_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="IdDoctor" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="IdDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ClientCoupon" Type="Self.ClientCoupon" Multiplicity="*" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="IdUser" />
             </Principal>
-            <Dependent Role="ClientCoupon">
+            <Dependent Role="Appointment">
               <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -224,6 +265,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reception_Appointment">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="IdAppointment" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="IdAppointment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reception_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
@@ -296,6 +349,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Position">
           <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -308,24 +373,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_XrayReception_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_XrayReception_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="IdDoctor" />
+            </Principal>
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_XrayReception_Tooth1">
+          <End Role="Tooth" Type="Self.Tooth" Multiplicity="0..1" />
+          <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tooth">
+              <PropertyRef Name="IdTooth" />
+            </Principal>
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdTooth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DentistryRLModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientCoupon" EntityType="Self.ClientCoupon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientToothCollection" EntityType="Self.ClientToothCollection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reception" EntityType="Self.Reception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tooth" EntityType="Self.Tooth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToothStatus" EntityType="Self.ToothStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ClientCoupon_User" Association="Self.FK_ClientCoupon_User">
+          <EntitySet Name="XrayReception" EntityType="Self.XrayReception" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointment_Client" Association="Self.FK_Appointment_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_User" Association="Self.FK_Appointment_User">
             <End Role="User" EntitySet="User" />
-            <End Role="ClientCoupon" EntitySet="ClientCoupon" />
+            <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientToothCollection_Client" Association="Self.FK_ClientToothCollection_Client">
             <End Role="Client" EntitySet="Client" />
@@ -351,6 +461,10 @@
             <End Role="Author" EntitySet="Author" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reception_Appointment" Association="Self.FK_Reception_Appointment">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="Reception" EntitySet="Reception" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reception_Client" Association="Self.FK_Reception_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Reception" EntitySet="Reception" />
@@ -375,9 +489,25 @@
             <End Role="Doctor" EntitySet="Doctor" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Position" Association="Self.FK_User_Position">
             <End Role="Position" EntitySet="Position" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_XrayReception_Client" Association="Self.FK_XrayReception_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="XrayReception" EntitySet="XrayReception" />
+          </AssociationSet>
+          <AssociationSet Name="FK_XrayReception_Doctor" Association="Self.FK_XrayReception_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="XrayReception" EntitySet="XrayReception" />
+          </AssociationSet>
+          <AssociationSet Name="FK_XrayReception_Tooth1" Association="Self.FK_XrayReception_Tooth1">
+            <End Role="Tooth" EntitySet="Tooth" />
+            <End Role="XrayReception" EntitySet="XrayReception" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -385,20 +515,37 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DentistryRLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DentistryRLEntitiesColl" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="DentistryRLModel.Appointment" />
           <EntitySet Name="Authors" EntityType="DentistryRLModel.Author" />
           <EntitySet Name="Clients" EntityType="DentistryRLModel.Client" />
-          <EntitySet Name="ClientCoupons" EntityType="DentistryRLModel.ClientCoupon" />
           <EntitySet Name="ClientToothCollections" EntityType="DentistryRLModel.ClientToothCollection" />
           <EntitySet Name="Departments" EntityType="DentistryRLModel.Department" />
           <EntitySet Name="Doctors" EntityType="DentistryRLModel.Doctor" />
+          <EntitySet Name="Genders" EntityType="DentistryRLModel.Gender" />
           <EntitySet Name="News" EntityType="DentistryRLModel.News" />
           <EntitySet Name="Positions" EntityType="DentistryRLModel.Position" />
           <EntitySet Name="Receptions" EntityType="DentistryRLModel.Reception" />
           <EntitySet Name="Services" EntityType="DentistryRLModel.Service" />
-          <EntitySet Name="sysdiagrams" EntityType="DentistryRLModel.sysdiagram" />
           <EntitySet Name="Teeth" EntityType="DentistryRLModel.Tooth" />
           <EntitySet Name="ToothStatus" EntityType="DentistryRLModel.ToothStatu" />
           <EntitySet Name="Users" EntityType="DentistryRLModel.User" />
+          <EntitySet Name="XrayReceptions" EntityType="DentistryRLModel.XrayReception" />
+          <AssociationSet Name="FK_Appointment_Client" Association="DentistryRLModel.FK_Appointment_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Doctor" Association="DentistryRLModel.FK_Appointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_User" Association="DentistryRLModel.FK_Appointment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reception_Appointment" Association="DentistryRLModel.FK_Reception_Appointment">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="Reception" EntitySet="Receptions" />
+          </AssociationSet>
           <AssociationSet Name="FK_News_Author" Association="DentistryRLModel.FK_News_Author">
             <End Role="Author" EntitySet="Authors" />
             <End Role="News" EntitySet="News" />
@@ -415,9 +562,9 @@
             <End Role="Client" EntitySet="Clients" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientCoupon_User" Association="DentistryRLModel.FK_ClientCoupon_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ClientCoupon" EntitySet="ClientCoupons" />
+          <AssociationSet Name="FK_XrayReception_Client" Association="DentistryRLModel.FK_XrayReception_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="XrayReception" EntitySet="XrayReceptions" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientToothCollection_Tooth" Association="DentistryRLModel.FK_ClientToothCollection_Tooth">
             <End Role="Tooth" EntitySet="Teeth" />
@@ -447,6 +594,14 @@
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_XrayReception_Doctor" Association="DentistryRLModel.FK_XrayReception_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="XrayReception" EntitySet="XrayReceptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="DentistryRLModel.FK_User_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Position" Association="DentistryRLModel.FK_User_Position">
             <End Role="Position" EntitySet="Positions" />
             <End Role="User" EntitySet="Users" />
@@ -455,7 +610,26 @@
             <End Role="Service" EntitySet="Services" />
             <End Role="Reception" EntitySet="Receptions" />
           </AssociationSet>
+          <AssociationSet Name="FK_XrayReception_Tooth1" Association="DentistryRLModel.FK_XrayReception_Tooth1">
+            <End Role="Tooth" EntitySet="Teeth" />
+            <End Role="XrayReception" EntitySet="XrayReceptions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="IdAppointment" />
+          </Key>
+          <Property Name="IdAppointment" Type="Int32" Nullable="false" />
+          <Property Name="IdClient" Type="Int32" />
+          <Property Name="IdDoctor" Type="Int32" />
+          <Property Name="ComplaintAppointment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAppointment" Type="DateTime" Precision="3" />
+          <Property Name="IdUser" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_Appointment_Client" FromRole="Appointment" ToRole="Client" />
+          <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_Appointment_Doctor" FromRole="Appointment" ToRole="Doctor" />
+          <NavigationProperty Name="User" Relationship="DentistryRLModel.FK_Appointment_User" FromRole="Appointment" ToRole="User" />
+          <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Appointment" FromRole="Appointment" ToRole="Reception" />
+        </EntityType>
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="IdAuthor" />
@@ -473,19 +647,15 @@
           <Property Name="NumberOfPassportClient" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumberClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AddressClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChronicDiseases" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PastDiseases" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDiseases" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BadHabit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="DentistryRLModel.FK_Appointment_Client" FromRole="Client" ToRole="Appointment" />
           <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_Client" FromRole="Client" ToRole="ClientToothCollection" />
           <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Client" FromRole="Client" ToRole="Reception" />
           <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Client" FromRole="Client" ToRole="User" />
-        </EntityType>
-        <EntityType Name="ClientCoupon">
-          <Key>
-            <PropertyRef Name="IdClientCoupon" />
-          </Key>
-          <Property Name="IdClientCoupon" Type="Int32" Nullable="false" />
-          <Property Name="ComplaintClientCoupon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IdUser" Type="Int32" />
-          <Property Name="DateOfTheApplication" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="User" Relationship="DentistryRLModel.FK_ClientCoupon_User" FromRole="ClientCoupon" ToRole="User" />
+          <NavigationProperty Name="XrayReceptions" Relationship="DentistryRLModel.FK_XrayReception_Client" FromRole="Client" ToRole="XrayReception" />
         </EntityType>
         <EntityType Name="ClientToothCollection">
           <Key>
@@ -518,11 +688,22 @@
           <Property Name="PhoneNumberDoctor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="IdDepartment" Type="Int32" />
           <Property Name="EducationDoctor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmploymentDateDoctor" Type="DateTime" Precision="0" />
+          <Property Name="EmploymentDateDoctor" Type="DateTime" Precision="3" />
+          <Property Name="DescriptionDoctor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="DentistryRLModel.FK_Appointment_Doctor" FromRole="Doctor" ToRole="Appointment" />
           <NavigationProperty Name="Department" Relationship="DentistryRLModel.FK_Doctor_Department" FromRole="Doctor" ToRole="Department" />
           <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Doctor" FromRole="Doctor" ToRole="Reception" />
           <NavigationProperty Name="Receptions1" Relationship="DentistryRLModel.FK_Reception_Doctor1" FromRole="Doctor" ToRole="Reception" />
           <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Doctor" FromRole="Doctor" ToRole="User" />
+          <NavigationProperty Name="XrayReceptions" Relationship="DentistryRLModel.FK_XrayReception_Doctor" FromRole="Doctor" ToRole="XrayReception" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="Int32" Nullable="false" />
+          <Property Name="NameGender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="DentistryRLModel.FK_User_Gender" FromRole="Gender" ToRole="User" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -549,11 +730,14 @@
             <PropertyRef Name="IdReception" />
           </Key>
           <Property Name="IdReception" Type="Int32" Nullable="false" />
-          <Property Name="DateReception" Type="DateTime" Precision="0" />
+          <Property Name="DateReception" Type="DateTime" Precision="3" />
           <Property Name="IdClient" Type="Int32" />
           <Property Name="IdDoctor" Type="Int32" />
           <Property Name="IdService" Type="Int32" />
           <Property Name="DiagnosisReception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdAppointment" Type="Int32" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointment" Relationship="DentistryRLModel.FK_Reception_Appointment" FromRole="Reception" ToRole="Appointment" />
           <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_Reception_Client" FromRole="Reception" ToRole="Client" />
           <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_Reception_Doctor" FromRole="Reception" ToRole="Doctor" />
           <NavigationProperty Name="Doctor1" Relationship="DentistryRLModel.FK_Reception_Doctor1" FromRole="Reception" ToRole="Doctor" />
@@ -568,16 +752,6 @@
           <Property Name="PriceService" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="Receptions" Relationship="DentistryRLModel.FK_Reception_Service1" FromRole="Service" ToRole="Reception" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Tooth">
           <Key>
             <PropertyRef Name="IdTooth" />
@@ -586,6 +760,7 @@
           <Property Name="PhotoTooth" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="NameTooth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_Tooth" FromRole="Tooth" ToRole="ClientToothCollection" />
+          <NavigationProperty Name="XrayReceptions" Relationship="DentistryRLModel.FK_XrayReception_Tooth1" FromRole="Tooth" ToRole="XrayReception" />
         </EntityType>
         <EntityType Name="ToothStatu">
           <Key>
@@ -611,14 +786,77 @@
           <Property Name="PreviewUser" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IdClient" Type="Int32" />
           <Property Name="IdDoctor" Type="Int32" />
-          <Property Name="GenderUser" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IdGender" Type="Int32" />
           <Property Name="ProfessionUser" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="DentistryRLModel.FK_Appointment_User" FromRole="User" ToRole="Appointment" />
           <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_User_Client" FromRole="User" ToRole="Client" />
-          <NavigationProperty Name="ClientCoupons" Relationship="DentistryRLModel.FK_ClientCoupon_User" FromRole="User" ToRole="ClientCoupon" />
           <NavigationProperty Name="ClientToothCollections" Relationship="DentistryRLModel.FK_ClientToothCollection_User1" FromRole="User" ToRole="ClientToothCollection" />
           <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_User_Doctor" FromRole="User" ToRole="Doctor" />
+          <NavigationProperty Name="Gender" Relationship="DentistryRLModel.FK_User_Gender" FromRole="User" ToRole="Gender" />
           <NavigationProperty Name="Position" Relationship="DentistryRLModel.FK_User_Position" FromRole="User" ToRole="Position" />
         </EntityType>
+        <EntityType Name="XrayReception">
+          <Key>
+            <PropertyRef Name="IdXrayReception" />
+          </Key>
+          <Property Name="IdXrayReception" Type="Int32" Nullable="false" />
+          <Property Name="IdTooth" Type="Int32" />
+          <Property Name="IdClient" Type="Int32" />
+          <Property Name="IdDoctor" Type="Int32" />
+          <Property Name="PreviewXray" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DateOfXray" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="DentistryRLModel.FK_XrayReception_Client" FromRole="XrayReception" ToRole="Client" />
+          <NavigationProperty Name="Doctor" Relationship="DentistryRLModel.FK_XrayReception_Doctor" FromRole="XrayReception" ToRole="Doctor" />
+          <NavigationProperty Name="Tooth" Relationship="DentistryRLModel.FK_XrayReception_Tooth1" FromRole="XrayReception" ToRole="Tooth" />
+        </EntityType>
+        <Association Name="FK_Appointment_Client">
+          <End Type="DentistryRLModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Doctor">
+          <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="IdDoctor" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="IdDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_User">
+          <End Type="DentistryRLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reception_Appointment">
+          <End Type="DentistryRLModel.Appointment" Role="Appointment" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.Reception" Role="Reception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="IdAppointment" />
+            </Principal>
+            <Dependent Role="Reception">
+              <PropertyRef Name="IdAppointment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_News_Author">
           <End Type="DentistryRLModel.Author" Role="Author" Multiplicity="1" />
           <End Type="DentistryRLModel.News" Role="News" Multiplicity="*" />
@@ -667,15 +905,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientCoupon_User">
-          <End Type="DentistryRLModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DentistryRLModel.ClientCoupon" Role="ClientCoupon" Multiplicity="*" />
+        <Association Name="FK_XrayReception_Client">
+          <End Type="DentistryRLModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.XrayReception" Role="XrayReception" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="IdUser" />
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
             </Principal>
-            <Dependent Role="ClientCoupon">
-              <PropertyRef Name="IdUser" />
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdClient" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -763,6 +1001,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_XrayReception_Doctor">
+          <End Type="DentistryRLModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.XrayReception" Role="XrayReception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="IdDoctor" />
+            </Principal>
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Type="DentistryRLModel.Gender" Role="Gender" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Position">
           <End Type="DentistryRLModel.Position" Role="Position" Multiplicity="0..1" />
           <End Type="DentistryRLModel.User" Role="User" Multiplicity="*" />
@@ -787,12 +1049,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_XrayReception_Tooth1">
+          <End Type="DentistryRLModel.Tooth" Role="Tooth" Multiplicity="0..1" />
+          <End Type="DentistryRLModel.XrayReception" Role="XrayReception" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tooth">
+              <PropertyRef Name="IdTooth" />
+            </Principal>
+            <Dependent Role="XrayReception">
+              <PropertyRef Name="IdTooth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DentistryRLModelStoreContainer" CdmEntityContainer="DentistryRLEntitiesColl">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="DentistryRLModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="DateAppointment" ColumnName="DateAppointment" />
+                <ScalarProperty Name="ComplaintAppointment" ColumnName="ComplaintAppointment" />
+                <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdAppointment" ColumnName="IdAppointment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="DentistryRLModel.Author">
               <MappingFragment StoreEntitySet="Author">
@@ -804,21 +1090,15 @@
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="DentistryRLModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="BadHabit" ColumnName="BadHabit" />
+                <ScalarProperty Name="CurrentDiseases" ColumnName="CurrentDiseases" />
+                <ScalarProperty Name="PastDiseases" ColumnName="PastDiseases" />
+                <ScalarProperty Name="ChronicDiseases" ColumnName="ChronicDiseases" />
                 <ScalarProperty Name="AddressClient" ColumnName="AddressClient" />
                 <ScalarProperty Name="PhoneNumberClient" ColumnName="PhoneNumberClient" />
                 <ScalarProperty Name="NumberOfPassportClient" ColumnName="NumberOfPassportClient" />
                 <ScalarProperty Name="SeriesOfPassportClient" ColumnName="SeriesOfPassportClient" />
                 <ScalarProperty Name="IdClient" ColumnName="IdClient" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientCoupons">
-            <EntityTypeMapping TypeName="DentistryRLModel.ClientCoupon">
-              <MappingFragment StoreEntitySet="ClientCoupon">
-                <ScalarProperty Name="DateOfTheApplication" ColumnName="DateOfTheApplication" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="ComplaintClientCoupon" ColumnName="ComplaintClientCoupon" />
-                <ScalarProperty Name="IdClientCoupon" ColumnName="IdClientCoupon" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -844,12 +1124,21 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="DentistryRLModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DescriptionDoctor" ColumnName="DescriptionDoctor" />
                 <ScalarProperty Name="EmploymentDateDoctor" ColumnName="EmploymentDateDoctor" />
                 <ScalarProperty Name="EducationDoctor" ColumnName="EducationDoctor" />
                 <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
                 <ScalarProperty Name="PhoneNumberDoctor" ColumnName="PhoneNumberDoctor" />
                 <ScalarProperty Name="WorkExperienceDoctor" ColumnName="WorkExperienceDoctor" />
                 <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="DentistryRLModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="NameGender" ColumnName="NameGender" />
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -876,6 +1165,8 @@
           <EntitySetMapping Name="Receptions">
             <EntityTypeMapping TypeName="DentistryRLModel.Reception">
               <MappingFragment StoreEntitySet="Reception">
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="IdAppointment" ColumnName="IdAppointment" />
                 <ScalarProperty Name="DiagnosisReception" ColumnName="DiagnosisReception" />
                 <ScalarProperty Name="IdService" ColumnName="IdService" />
                 <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
@@ -891,17 +1182,6 @@
                 <ScalarProperty Name="PriceService" ColumnName="PriceService" />
                 <ScalarProperty Name="NameService" ColumnName="NameService" />
                 <ScalarProperty Name="IdService" ColumnName="IdService" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DentistryRLModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -927,7 +1207,7 @@
             <EntityTypeMapping TypeName="DentistryRLModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="ProfessionUser" ColumnName="ProfessionUser" />
-                <ScalarProperty Name="GenderUser" ColumnName="GenderUser" />
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
                 <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
                 <ScalarProperty Name="IdClient" ColumnName="IdClient" />
                 <ScalarProperty Name="PreviewUser" ColumnName="PreviewUser" />
@@ -939,6 +1219,18 @@
                 <ScalarProperty Name="LastNameUser" ColumnName="LastNameUser" />
                 <ScalarProperty Name="NameUser" ColumnName="NameUser" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XrayReceptions">
+            <EntityTypeMapping TypeName="DentistryRLModel.XrayReception">
+              <MappingFragment StoreEntitySet="XrayReception">
+                <ScalarProperty Name="DateOfXray" ColumnName="DateOfXray" />
+                <ScalarProperty Name="PreviewXray" ColumnName="PreviewXray" />
+                <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdTooth" ColumnName="IdTooth" />
+                <ScalarProperty Name="IdXrayReception" ColumnName="IdXrayReception" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

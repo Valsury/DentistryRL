@@ -1,30 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Dentistry.Pages.AddReceptionPage" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3" Y="1" Width="1.5" />
+    <Position X="2.5" Y="1" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAEAAAAAAAAAAAAACAAAQAABAAAAAAAgAAAAA=</HashCode>
       <FileName>Pages\AddReceptionPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Dentistry.Pages.CurrentReceptionsPage" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\CurrentReceptionsPage.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Dentistry.Pages.DoctorPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ICCAQAAQAAAAgQAQAAAAQAGAAQAAAEAAAIAIAAAEAAA=</HashCode>
+      <HashCode>IAiAQAQQAAAAgEBIAAAMQEkAAwAAEEAAAIAIAgAEAIA=</HashCode>
       <FileName>Pages\DoctorPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Dentistry.Pages.EditDoctorPage" BaseTypeListCollapsed="true">
+  <Class Name="Dentistry.Pages.EditDoctorPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="11" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAgIAEAEAAACAAAAAAAAAAAABIAAAAA=</HashCode>
@@ -33,7 +25,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dentistry.Pages.InfoAboutDoctorsPage" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="1" Y="1.75" Width="1.5" />
+    <Position X="1" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIEAACAIAAAAAAAAAgMAAAAAAAAAAAAABAIAAAAAAA=</HashCode>
       <FileName>Pages\InfoAboutDoctorsPage.xaml.cs</FileName>
@@ -41,15 +33,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dentistry.Pages.InfoAboutReceptionsPage" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5" Y="2" Width="1.5" />
+    <Position X="4.25" Y="2" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>CAIEAACAIAAAAAAAAAAMAAAAAAAAAAAAABAAAAACAAA=</HashCode>
+      <HashCode>AAIEAACAIAAAAAAAAAAMACAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Pages\InfoAboutReceptionsPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dentistry.Pages.InfoAboutUsersPage" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9" Y="1.25" Width="1.5" />
+    <Position X="8.5" Y="1.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIEAACAIAAAAAAAAAgMAAAAAAAAAAAAABAIAAAAAAA=</HashCode>
       <FileName>Pages\InfoAboutUsersPage.xaml.cs</FileName>
@@ -59,7 +51,7 @@
   <Class Name="Dentistry.Pages.MedicalCouponPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="11.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAEAAAAAAAAQAAAAAAAIAAAAACBAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAQAAAAAAAIAAAAACBAAAAABA=</HashCode>
       <FileName>Pages\MedicalCouponPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -67,15 +59,15 @@
   <Class Name="Dentistry.Pages.NewsPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABCAAAAQAAAAAAAAAAIARAAAAAAACAAAAAAAAQAAAA=</HashCode>
-      <FileName>Pages\NewsPage.xaml.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAgAAAAIAAAAAAAAACAAQAAAAAAAAAA=</HashCode>
+      <FileName>Pages\DocotrsInfoPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Dentistry.Pages.PersonalAreaPage" BaseTypeListCollapsed="true">
+  <Class Name="Dentistry.Pages.PersonalAreaPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="8.25" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAQAAAAAEQAIAEAEQAACEQAAAEAAAIAIBAACAIA=</HashCode>
+      <HashCode>AAAAQAQAAAAAEUAIAEAEQAACEQAAAEAAAIAIBAACAIA=</HashCode>
       <FileName>Pages\PersonalAreaPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -104,11 +96,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="System.Windows.Controls.Page" Collapsed="true">
-    <Position X="6" Y="3.25" Width="1.5" />
-    <TypeIdentifier />
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="Dentistry.Classes.SHA1Hashing" Collapsed="true">
     <Position X="9" Y="4.25" Width="1.5" />
     <TypeIdentifier>
@@ -116,9 +103,57 @@
       <FileName>Classes\SHA1Hashing.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="System.Object" Collapsed="true">
-    <Position X="12.5" Y="4.75" Width="1.5" />
+  <Class Name="Dentistry.MainWindow" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAIAAAAABAAAAAAAAAAAAAAAAAQAIAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dentistry.LoginPage" Collapsed="true">
+    <Position X="13" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIEAAADAAAAAAAAAEAAAAEQAAAAAAAAAAAIACAAA=</HashCode>
+      <FileName>Pages\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dentistry.AdminMenuPage" Collapsed="true">
+    <Position X="5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AdminMenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dentistry.AppData" Collapsed="true">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Controls.Page" Collapsed="true">
+    <Position X="7" Y="2.25" Width="1.5" />
     <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Window" Collapsed="true">
+    <Position X="6.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Dentistry.Pages.DoctorMenuPage" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Pages\DoctorMenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

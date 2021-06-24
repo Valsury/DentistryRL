@@ -10,5 +10,6 @@ namespace Dentistry
     {
         public static Entities.DentistryRLEntitiesColl Context = new Entities.DentistryRLEntitiesColl();
         public static Entities.User CurrentUser;
+
     }
 }

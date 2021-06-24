@@ -17,9 +17,11 @@ namespace Dentistry.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
+            this.Appointments = new HashSet<Appointment>();
             this.Receptions = new HashSet<Reception>();
             this.Receptions1 = new HashSet<Reception>();
             this.Users = new HashSet<User>();
+            this.XrayReceptions = new HashSet<XrayReception>();
         }
     
         public int IdDoctor { get; set; }
@@ -28,7 +30,10 @@ namespace Dentistry.Entities
         public Nullable<int> IdDepartment { get; set; }
         public string EducationDoctor { get; set; }
         public Nullable<System.DateTime> EmploymentDateDoctor { get; set; }
+        public string DescriptionDoctor { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Receptions { get; set; }
@@ -36,5 +41,7 @@ namespace Dentistry.Entities
         public virtual ICollection<Reception> Receptions1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<XrayReception> XrayReceptions { get; set; }
     }
 }

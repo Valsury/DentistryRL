@@ -26,6 +26,8 @@ namespace Dentistry
             InitializeComponent();
             //var cuurentTooth = AppData.Context.Teeth.ToList()[31];
             //cuurentTooth.PhotoTooth = File.ReadAllBytes(@"C:\Users\valsu\OneDrive\Desktop\Teeth\48.png");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-Ru");
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("ru-Ru");
             MainFrame.Navigate(new LoginPage());
             AppData.Context.SaveChanges();
         }
@@ -35,7 +37,7 @@ namespace Dentistry
 
             var page = MainFrame.Content as Page;
 
-            if (page is AdminMenuPage || page is Pages.PersonalAreaPage || page is Pages.DoctorPage)
+            if (page is AdminMenuPage || page is Pages.PersonalAreaPage || page is Pages.DoctorMenuPage)
             {
                 Properties.Settings.Default.UserID = 0;
                 Properties.Settings.Default.Save();
@@ -54,12 +56,10 @@ namespace Dentistry
             if (page is LoginPage)
             {
                 BtnBack.Visibility = Visibility.Collapsed;
-                BtnExit.Visibility = Visibility.Visible;
             }
             else
             {
                 BtnBack.Visibility = Visibility.Visible;
-                BtnExit.Visibility = Visibility.Collapsed;
             }
 
             if (page is LoginPage)
@@ -87,6 +87,12 @@ namespace Dentistry
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

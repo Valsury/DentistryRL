@@ -1,6 +1,8 @@
 ﻿using Dentistry.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,16 +27,71 @@ namespace Dentistry.Pages
         private List<ClientToothCollection> _currCollection;
         private UserControls.ToothStatusUserControl _currImage;
         private Reception currentReception;
+        private Entities.Appointment _currentAppointment;
+        private byte[] _previewData;
+        private XrayReception _currXray;
         public int currentStatus = 0;
 
-        public DoctorPage()
+        public DoctorPage(Entities.Appointment selectedAppointment)
         {
             InitializeComponent();
 
-            var currentClients = AppData.Context.Users.ToList().Where(p => p.IdPosition == 2);
-            ComboClients.ItemsSource = currentClients;
+
+            comboToothStatus.ItemsSource = AppData.Context.ToothStatus.ToList();
             comboService.ItemsSource = AppData.Context.Services.ToList();
 
+            if (selectedAppointment != null)
+            {
+                _currentAppointment = selectedAppointment;
+
+                foreach (var toothImage in CanvasTeeth.Children)
+                {
+                    if (toothImage is UserControls.ToothStatusUserControl currentToothImage)
+                        currentToothImage.DataContext = null;
+
+                }
+
+                var currentClient = _currentAppointment.Client;
+                _currCollection = currentClient.ClientToothCollections.ToList();
+
+                foreach (var toothImage in CanvasTeeth.Children)
+                {
+                    if (toothImage is UserControls.ToothStatusUserControl currentToothImage)
+                    {
+                        LoadToothImage(currentToothImage);
+                    }
+                }
+
+                DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList().Where(p => p.IdClient == selectedAppointment.IdClient);
+
+                TBlockFullName.Text = _currentAppointment.Client.FullNameClient;
+                TBlockPhoneNumber.Text = _currentAppointment.Client.PhoneNumberClient;
+                TBlockAddress.Text = _currentAppointment.Client.AddressClient;
+                BorderPhoto.DataContext = _currentAppointment.User.PreviewUser;
+                TBoxchronicDiseases.Text = _currentAppointment.Client.ChronicDiseases;
+                TBoxPastDiseases.Text = _currentAppointment.Client.PastDiseases;
+                TBoxCurrentDiseases.Text = _currentAppointment.Client.CurrentDiseases;
+                TBoxBadHabit.Text = _currentAppointment.Client.BadHabit;
+
+                var lastDateOfReception = AppData.Context.Appointments.ToList().Last(p => p.IdClient == _currentAppointment.Client.IdClient);
+                if(lastDateOfReception != null)
+                {
+                    TBlockLastReception.Text = lastDateOfReception.DateAppointment.ToString();
+
+                }
+                else
+                {
+                    TBlockLastReception.Text = "-";
+                }
+
+
+                if (LViewXrays != null)
+                    LViewXrays.ItemsSource = AppData.Context.XrayReceptions.ToList().Where(p => p.IdClient == _currentAppointment.IdClient);
+
+                ComboTeeth.ItemsSource = AppData.Context.Teeth.ToList();
+
+
+            }
 
         }
         private void Element_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -42,11 +99,7 @@ namespace Dentistry.Pages
             LoadAndUpdateData();
         }
 
-        private void ComboClients_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            LoadAndUpdateData();
 
-        }
 
 
         private void LoadAndUpdateData()
@@ -57,26 +110,25 @@ namespace Dentistry.Pages
                     currentToothImage.DataContext = null;
             }
 
+            var currentClient = _currentAppointment.Client;
+            _currCollection = currentClient.ClientToothCollections.ToList();
 
-            if (ComboClients.SelectedIndex > -1)
+
+
+
+
+            foreach (var toothImage in CanvasTeeth.Children)
             {
-                var currentClient = (ComboClients.SelectedItem as Entities.User).Client;
-                _currCollection = currentClient.ClientToothCollections.ToList();
-
-
-
-
-
-                foreach (var toothImage in CanvasTeeth.Children)
+                if (toothImage is UserControls.ToothStatusUserControl currentToothImage)
                 {
-                    if (toothImage is UserControls.ToothStatusUserControl currentToothImage)
-                    {
-                        LoadToothImage(currentToothImage);
-                    }
+                    LoadToothImage(currentToothImage);
                 }
-
             }
 
+            if (LViewXrays != null)
+                LViewXrays.ItemsSource = AppData.Context.XrayReceptions.ToList().Where(p => p.IdClient == _currentAppointment.IdClient);
+
+            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList().Where(p => p.IdClient == _currentAppointment.IdClient);
 
         }
 
@@ -95,6 +147,7 @@ namespace Dentistry.Pages
 
         private void Tooth_MouseEnter(object sender, MouseEventArgs e)
         {
+            popUpStatus.IsOpen = true;
             try
             {
                 _currImage = sender as UserControls.ToothStatusUserControl;
@@ -122,13 +175,15 @@ namespace Dentistry.Pages
                         RadioRemoved.IsChecked = true;
                         break;
                 }
-                popUpStatus.IsOpen = true;
+                
             }
             catch
             {
 
             }
         }
+
+    
 
         private void Radio_Checked(object sender, RoutedEventArgs e)
         {
@@ -142,17 +197,12 @@ namespace Dentistry.Pages
             }
         }
 
-        private void Tooth_MouseLeave(object sender, MouseEventArgs e)
+
+        private void Tooth_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            popUpStatus.IsOpen = false;
-        }
-
-        private void Tooth11_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            _currImage = sender as UserControls.ToothStatusUserControl;
-
-
+            var currentTag = sender as UserControls.ToothStatusUserControl;
             GridAddTooth.Visibility = Visibility.Visible;
+            TboxIdTooth.Text = currentTag.Tag.ToString();
 
 
         }
@@ -179,58 +229,182 @@ namespace Dentistry.Pages
 
             }
 
-            var currentClient = (ComboClients.SelectedItem as Entities.User).Client;
-            _currTooth = new Entities.ClientToothCollection
+            //var currentClient = (ComboClients.SelectedItem as Entities.User).Client;
+
+            if(TBoxDiagnosis.Text!="")
             {
-                IdClientToothCollection = AppData.Context.ClientToothCollections.Max(p => p.IdClientToothCollection) + 1,
-                IdClient = currentClient.IdClient,
-                IdUser = currentClient.IdClient,
-                IdTooth = Int32.Parse(TboxIdTooth.Text),
-                IdToothStatus = currentStatus
-            };
-            AppData.Context.ClientToothCollections.Add(_currTooth);
-            AppData.Context.ClientToothCollections.ToList();
+                var currentDoctor = AppData.Context.Doctors.ToList().FirstOrDefault(p => p.IdDoctor == Properties.Settings.Default.UserID);
+                currentReception = new Entities.Reception
+                {
+                    IdReception = AppData.Context.Receptions.Max(p => p.IdReception) + 1,
+                    DateReception = DateTime.Now,
+                    IdClient = _currentAppointment.IdClient,
+                    IdDoctor = currentDoctor.IdDoctor,
+                    IdService = (comboService.SelectedItem as Entities.Service).IdService,
+                    IdAppointment = _currentAppointment.IdAppointment,
+                    DiagnosisReception = TBoxDiagnosis.Text
+                };
 
-            var currentDoctor = AppData.Context.Doctors.ToList().FirstOrDefault(p => p.IdDoctor == Properties.Settings.Default.UserID);
-            currentReception = new Entities.Reception
+                AppData.Context.Receptions.Add(currentReception);
+                AppData.Context.Receptions.ToList();
+
+                AppData.Context.SaveChanges();
+                MessageBox.Show("Прием завершен!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                NavigationService.Navigate(new ReceptionCouponPage(currentReception));
+            }
+            else
             {
-                IdReception = AppData.Context.Receptions.Max(p => p.IdReception) + 1,
-                DateReception = DateTime.Now,
-                IdClient = currentClient.IdClient,
-                IdDoctor = currentDoctor.IdDoctor,
-                IdService = (comboService.SelectedItem as Entities.Service).IdService,
-                DiagnosisReception = TBoxDiagnosis.Text
-            };
-
-            AppData.Context.Receptions.Add(currentReception);
-            AppData.Context.Receptions.ToList();
-
-            AppData.Context.SaveChanges();
-
-            if (MessageBox.Show("Информация добавлена!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-            {
-                CanvasTeeth.Visibility = Visibility.Hidden;
-                CanvasTeeth.Visibility = Visibility.Visible;
-
+                MessageBox.Show("Укажите диагноз!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
 
+
+
+
         }
 
 
 
 
-        private void BtnDocotrReceptions_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new CurrentReceptionsPage());
-        }
 
         private void comboService_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(comboService.SelectedIndex >-1)
+            if (comboService.SelectedIndex > -1)
             {
                 var currentService = (comboService.SelectedItem as Entities.Service).NameService;
             }
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if(TboxIdTooth.Text != "")
+            {
+                _currTooth = new Entities.ClientToothCollection
+                {
+                    IdClientToothCollection = AppData.Context.ClientToothCollections.Max(p => p.IdClientToothCollection) + 1,
+                    IdClient = _currentAppointment.IdClient,
+                    IdUser = _currentAppointment.IdClient,
+                    IdTooth = Int32.Parse(TboxIdTooth.Text),
+                    IdToothStatus = (comboToothStatus.SelectedItem as Entities.ToothStatu).IdToothStatus
+                };
+                AppData.Context.ClientToothCollections.Add(_currTooth);
+                AppData.Context.ClientToothCollections.ToList();
+                AppData.Context.SaveChanges();
+                if (MessageBox.Show("Информация добавлена!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                {
+                    CanvasTeeth.Visibility = Visibility.Hidden;
+                    CanvasTeeth.Visibility = Visibility.Visible;
+
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Укажите зуб для добавления!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+          
+        }
+
+        private void HLinkAllReceptions_Click(object sender, RoutedEventArgs e)
+        {
+            GridProfile.Visibility = Visibility.Collapsed;
+            GridAddTooth.Visibility = Visibility.Collapsed;
+            GridReceptions.Visibility = Visibility.Visible;
+        }
+
+        private void HLinkTeethCard_Click(object sender, RoutedEventArgs e)
+        {
+            GridProfile.Visibility = Visibility.Collapsed;
+            GridReceptions.Visibility = Visibility.Collapsed;
+            GridAddTooth.Visibility = Visibility.Visible;
+        }
+
+        private void HLinkPersonalInfo_Click(object sender, RoutedEventArgs e)
+        {
+            GridProfile.Visibility = Visibility.Visible;
+            GridReceptions.Visibility = Visibility.Collapsed;
+            GridAddTooth.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnEditAdditionalInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if(_currentAppointment!=null)
+            {
+                 _currentAppointment.Client.ChronicDiseases = TBoxchronicDiseases.Text;
+                 _currentAppointment.Client.PastDiseases = TBoxPastDiseases.Text;
+                 _currentAppointment.Client.CurrentDiseases = TBoxCurrentDiseases.Text;
+                _currentAppointment.Client.BadHabit = TBoxBadHabit.Text;
+                AppData.Context.SaveChanges();
+                AppData.Context.Appointments.ToList();
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+        }
+
+        private void BtnAddDental_Click(object sender, RoutedEventArgs e)
+        {
+            if(ComboTeeth.SelectedIndex>-1)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "Images | *.jpg;*.png;*.jpeg";
+                if (ofd.ShowDialog() == true)
+                {
+                    _previewData = File.ReadAllBytes(ofd.FileName);
+                }
+
+                PreviewXray.DataContext = _previewData;
+
+                _currXray = new Entities.XrayReception
+                {
+                    IdXrayReception = AppData.Context.XrayReceptions.ToList().Max(p => p.IdXrayReception) + 1,
+                    IdClient = _currentAppointment.IdClient,
+                    IdDoctor = _currentAppointment.IdDoctor,
+                    IdTooth = (ComboTeeth.SelectedItem as Entities.Tooth).IdTooth,
+                    DateOfXray = DateTime.Now
+                    
+                };
+                if (_previewData != null)
+                    _currXray.PreviewXray = _previewData;
+
+                AppData.Context.XrayReceptions.Add(_currXray);
+                AppData.Context.SaveChanges();
+               if( MessageBox.Show("Успешно", "Внимание", MessageBoxButton.OK, MessageBoxImage.Asterisk)==MessageBoxResult.OK)
+                {
+
+                    GridFullInfo.Visibility = Visibility.Hidden;
+                    GridFullInfo.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите конкретный зуб", "Внимание", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+        }
+
+        private void ButtonAdditionalInfo_Click(object sender, RoutedEventArgs e)
+        {
+            GridAdditionalInfo.Visibility = Visibility.Visible;
+            GridDental_Xrays.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonXRays_Click(object sender, RoutedEventArgs e)
+        {
+            GridDental_Xrays.Visibility = Visibility.Visible;
+            GridAdditionalInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string keyWord = TBoxSearch.Text.ToLower();
+            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList().Where(p => p.IdClient == _currentAppointment.IdClient)
+                        .Where(p =>
+                        p.Doctor.FullNameDoctor.ToLower().Contains(keyWord) ||
+                        p.DiagnosisReception.ToLower().Contains(keyWord) ||
+                        p.DateReception.ToString().Contains(keyWord) ||
+                        p.Appointment.ComplaintAppointment.ToLower().Contains(keyWord)||
+                        p.Service.NameService.ToLower().Contains(keyWord) ||
+                        p.Service.PriceService.ToString().Contains(keyWord)
+                        ).ToList();
         }
     }
 }

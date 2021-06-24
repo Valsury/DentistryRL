@@ -54,6 +54,7 @@ namespace Dentistry.Pages
            p.Client.SeriesOfPassportClient.ToLower().Contains(keyWord) ||
            p.Client.NumberOfPassportClient.ToLower().Contains(keyWord) ||
            p.Client.PhoneNumberClient.ToLower().Contains(keyWord) ||
+            p.Client.AddressClient.ToLower().Contains(keyWord) ||
            p.DateOfBirthUser.ToString().Contains(keyWord)).ToList();
 
 

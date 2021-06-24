@@ -1,0 +1,43 @@
+﻿<Page x:Class="Dentistry.Pages.InfoAboutAppointmentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dentistry.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Информация о записях на прием" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid IsVisibleChanged="DGridAppointments_IsVisibleChanged" Grid.Row="1" x:Name="DGridAppointments" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Width="*" Header="Дата приема" Binding="{Binding DateAppointment, StringFormat={}dd.MM.yyyy HH:mm}"/>
+                <DataGridTextColumn Width="*" Header="Пациент" Binding="{Binding Client.FullNameClient}"/>
+                <DataGridTextColumn Width="*" Header="Жалоба" Binding="{Binding ComplaintAppointment}"/>
+                <DataGridTemplateColumn Width="*" Header="Действие">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource LinkText}" HorizontalAlignment="Center">
+                                <Hyperlink x:Name="HLinkFullInfo" Click="HLinkFullInfo_Click">
+                                    Принять</Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
+            <Button Name="BtnDeleteData" Content="Удалить"  Click="BtnDeleteData_Click"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox Style="{StaticResource TboxSearch}" Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"></TextBox>
+        </StackPanel>
+    </Grid>
+</Page>

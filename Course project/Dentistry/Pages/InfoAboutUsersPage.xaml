@@ -31,6 +31,7 @@
                 <DataGridTextColumn Width="*" Header="Cерия паспотра" Binding="{Binding Client.SeriesOfPassportClient}"/>
                 <DataGridTextColumn Width="*" Header="Номер паспорта" Binding="{Binding Client.NumberOfPassportClient}"/>
                 <DataGridTextColumn Width="*" Header="Номер телефона" Binding="{Binding Client.PhoneNumberClient}"/>
+                <DataGridTextColumn Width="*" Header="Номер телефона" Binding="{Binding Client.AddressClient}"/>
             </DataGrid.Columns>
         </DataGrid>
 

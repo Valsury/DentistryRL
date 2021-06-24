@@ -20,7 +20,10 @@ namespace Dentistry.Entities
         public Nullable<int> IdDoctor { get; set; }
         public Nullable<int> IdService { get; set; }
         public string DiagnosisReception { get; set; }
+        public Nullable<int> IdAppointment { get; set; }
+        public string PaymentStatus { get; set; }
     
+        public virtual Appointment Appointment { get; set; }
         public virtual Client Client { get; set; }
         public virtual Doctor Doctor { get; set; }
         public virtual Doctor Doctor1 { get; set; }

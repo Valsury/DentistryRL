@@ -25,8 +25,9 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             {
-                AppData.Context.Users.ToList();
-                DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
+
+
+                UpdateItems();
 
 
 
@@ -36,21 +37,13 @@ namespace Dentistry.Pages
 
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string keyWord = TBoxSearch.Text.ToLower();
-            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList()
-                .Where(p =>
-                p.Client.FullNameClient.ToLower().Contains(keyWord) ||
-                p.Doctor.FullNameDoctor.ToLower().Contains(keyWord) ||
-                p.DiagnosisReception.ToLower().Contains(keyWord) ||
-                p.DateReception.ToString().Contains(keyWord) ||
-                p.Service.NameService.ToLower().Contains(keyWord) ||
-                p.Service.PriceService.ToString().Contains(keyWord)
-                ).ToList();
+            UpdateItems();
         }
 
         private void UpdateItems()
         {
-            var allReceptions = AppData.Context.Receptions.ToList();
+
+            var allReceptions = AppData.Context.Receptions.ToList().Where(p=>p.IdDoctor == AppData.CurrentUser.IdDoctor);
             switch (ComboFilter.SelectedIndex)
             {
                 case 0:
@@ -81,78 +74,26 @@ namespace Dentistry.Pages
                     allReceptions = allReceptions.OrderBy(p => p.IdReception).ToList();
                     break;
             }
-            if (DGridReceptions != null)
-            {
+         
+
+            string keyWord = TBoxSearch.Text.ToLower();
+            allReceptions = allReceptions
+                .Where(p =>
+                p.Client.FullNameClient.ToLower().Contains(keyWord) ||
+                p.Doctor.FullNameDoctor.ToLower().Contains(keyWord) ||
+                p.DiagnosisReception.ToLower().Contains(keyWord) ||
+                p.DateReception.ToString().Contains(keyWord) ||
+                p.Service.NameService.ToLower().Contains(keyWord) ||
+                p.Service.PriceService.ToString().Contains(keyWord)
+                ).ToList();
                 DGridReceptions.ItemsSource = allReceptions;
-            }
         }
 
         private void ComboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateItems();
         }
-        private void BtnExportWord_Click(object sender, RoutedEventArgs e)
-        {
-            var allReceptions = AppData.Context.Receptions.ToList();
-
-            var application = new Word.Application();
-            Word.Document document = application.Documents.Add();
-
-            foreach (var reception in allReceptions)
-            {
-                Word.Paragraph receptionParagraph = document.Paragraphs.Add();
-                Word.Range receptionRange = receptionParagraph.Range;
-                receptionRange.Text = DateTime.Now.ToString();
-                receptionParagraph.set_Style("Title");
-                receptionRange.InsertParagraphAfter();
-
-                Word.Paragraph tablePAragraph = document.Paragraphs.Add();
-                Word.Range tableRange = tablePAragraph.Range;
-                Word.Table paymentsTable = document.Tables.Add(tableRange, allReceptions.Count() + 1, 3);
-                paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle
-                    = Word.WdLineStyle.wdLineStyleSingle;
-                paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-
-
-                Word.Range cellRange;
-
-                cellRange = paymentsTable.Cell(1, 1).Range;
-                cellRange.Text = "Дата приема";
-                cellRange = paymentsTable.Cell(1, 2).Range;
-                cellRange.Text = "Код врача";
-                cellRange = paymentsTable.Cell(1, 3).Range;
-                cellRange.Text = "Код пациента";
-
-                paymentsTable.Rows[1].Range.Bold = 1;
-                paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-
-
-                for (int i = 0; i < allReceptions.Count(); i++)
-                {
-                    var currentReception = allReceptions[i];
-
-
-                    cellRange = paymentsTable.Cell(i + 2, 1).Range;
-                    cellRange.Text = currentReception.DateReception.ToString();
-
-                    cellRange = paymentsTable.Cell(i + 2, 2).Range;
-                    cellRange.Text = currentReception.IdDoctor.ToString();
-
-                    cellRange = paymentsTable.Cell(i + 2, 3).Range;
-                    cellRange.Text = currentReception.IdClient.ToString();
-
-                }
-
-                if (reception != allReceptions.LastOrDefault())
-                    document.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
-
-            }
-
-            application.Visible = true;
-
-            document.SaveAs2(@"D:\Test.docx");
-            document.SaveAs2(@"D:\Test.pdf", Word.WdExportFormat.wdExportFormatPDF);
-        }
+       
 
         private void BtnAddData_Click(object sender, RoutedEventArgs e)
         {
@@ -176,13 +117,8 @@ namespace Dentistry.Pages
 
                     AppData.Context.Receptions.Remove(currentReception);
                     AppData.Context.SaveChanges();
-                    AppData.Context.Users.ToList();
-                    AppData.Context.Clients.ToList();
-                   if( MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk) == MessageBoxResult.OK)
-                    {
-                        DGridReceptions.Visibility = Visibility.Hidden;
-                        DGridReceptions.Visibility = Visibility.Visible;
-                    }
+                    UpdateItems();
+                 
 
 
                 }
@@ -191,13 +127,17 @@ namespace Dentistry.Pages
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
+            UpdateItems();
         }
 
-        private void DGridReceptions_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+
+
+        private void HLinkFullInfo_Click(object sender, RoutedEventArgs e)
         {
-            DGridReceptions.DataContext = null;
-            DGridReceptions.ItemsSource = AppData.Context.Receptions.ToList();
+            if(DGridReceptions.SelectedItem is Entities.Reception currentReception)
+            {
+                NavigationService.Navigate(new ReceptionCouponPage(currentReception));
+            }
         }
     }
 }

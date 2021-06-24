@@ -30,9 +30,9 @@ namespace Dentistry.Pages
         public RegPage(Entities.User selectedUser)
         {
             InitializeComponent();
+            ComboGender.ItemsSource = AppData.Context.Genders.ToList();
 
 
-           
 
             if (selectedUser != null)
             {
@@ -40,9 +40,13 @@ namespace Dentistry.Pages
                 TBoxName.Text = _currentUser.NameUser;
                 TBoxLastName.Text = _currentUser.LastNameUser;
                 TBoxPatronymic.Text = _currentUser.PatronymicUser;
-                DtpBirthDate.SelectedDate = _currentUser.DateOfBirthUser;
+                DtpBirthDate.Value = _currentUser.DateOfBirthUser;
                 TBoxLogin.Text = _currentUser.LoginUser;
                 PBoxPass.Password = _currentUser.PasswordUser;
+                TBoxSerie.Text = _currentUser.Client.SeriesOfPassportClient;
+               TBoxNumber.Text = _currentUser.Client.NumberOfPassportClient;
+               TBoxPhoneNumber.Text = _currentUser.Client.PhoneNumberClient;
+                TBoxAddress.Text = _currentUser.Client.AddressClient;
                 BtnReg.Content = "Изменить";
 
 
@@ -55,30 +59,32 @@ namespace Dentistry.Pages
 
         }
 
+
         private void UpdateData()
         {
             var currentClient = AppData.Context.Clients.ToList();
             var currentUser = AppData.Context.Users.ToList();
 
-           
-        }
-       
 
-       public void BtnReg_Click(object sender, RoutedEventArgs e)
+        }
+
+
+        public void BtnReg_Click(object sender, RoutedEventArgs e)
         {
-          
+
             if (_currentUser != null)
             {
 
                 _currentUser.NameUser = TBoxName.Text;
                 _currentUser.LastNameUser = TBoxLastName.Text;
                 _currentUser.PatronymicUser = TBoxPatronymic.Text;
-                _currentUser.DateOfBirthUser = DtpBirthDate.SelectedDate;
+                _currentUser.DateOfBirthUser = DtpBirthDate.Value;
                 _currentUser.LoginUser = TBoxLogin.Text;
                 _currentUser.PasswordUser = PBoxPass.Password;
                 _currentUser.Client.SeriesOfPassportClient = TBoxSerie.Text;
                 _currentUser.Client.NumberOfPassportClient = TBoxNumber.Text;
                 _currentUser.Client.PhoneNumberClient = TBoxPhoneNumber.Text;
+                _currentUser.Client.AddressClient = TBoxAddress.Text;
 
 
 
@@ -92,7 +98,7 @@ namespace Dentistry.Pages
                 NavigationService.GoBack();
 
 
-              
+
 
 
             }
@@ -101,7 +107,7 @@ namespace Dentistry.Pages
             {
                 if (TBoxName.Text != "" && TBoxNumber.Text != "" && TBoxLastName.Text != "" && TBoxPhoneNumber.Text != "" && TBoxSerie.Text != "")
                 {
-                  
+
 
                     var hashClass = new Classes.SHA1Hashing();
                     var hashedpass = hashClass.HashString(PBoxPass.Password);
@@ -112,16 +118,19 @@ namespace Dentistry.Pages
                         NameUser = TBoxName.Text,
                         LastNameUser = TBoxLastName.Text,
                         PatronymicUser = TBoxPatronymic.Text,
-                        DateOfBirthUser = DtpBirthDate.SelectedDate,
+                        DateOfBirthUser = DtpBirthDate.Value,
                         IdPosition = 2,
+                        IdGender = (ComboGender.SelectedItem as Entities.Gender).IdGender,
                         LoginUser = TBoxLogin.Text,
-                       Client = new Entities.Client
-                       {
-                           IdClient = AppData.Context.Clients.ToList().Max(P => P.IdClient) + 1,
-                           SeriesOfPassportClient = TBoxSerie.Text,
-                           NumberOfPassportClient = TBoxNumber.Text,
-                           PhoneNumberClient = TBoxPhoneNumber.Text
-                       },
+                        Client = new Entities.Client
+                        {
+                            IdClient = AppData.Context.Users.ToList().Max(P => P.IdUser) + 1,
+                            SeriesOfPassportClient = TBoxSerie.Text,
+                            NumberOfPassportClient = TBoxNumber.Text,
+                            PhoneNumberClient = TBoxPhoneNumber.Text,
+                            AddressClient = TBoxAddress.Text
+                            
+                        },
                         PasswordUser = hashedpass
                     };
 
@@ -132,10 +141,10 @@ namespace Dentistry.Pages
                     AppData.Context.Users.Add(_currentUser);
                     UpdateData();
                     AppData.Context.SaveChanges();
-                    if(MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk)==MessageBoxResult.OK)
+                    if (MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk) == MessageBoxResult.OK)
                     {
                         NavigationService.GoBack();
-                    }    
+                    }
                 }
                 else
                 {
@@ -143,10 +152,10 @@ namespace Dentistry.Pages
                 }
 
 
-             
+
             }
 
-            
+
 
         }
 
@@ -154,7 +163,7 @@ namespace Dentistry.Pages
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Images | *.jpg;*.png;*.jpeg";
-            if(ofd.ShowDialog()==true)
+            if (ofd.ShowDialog() == true)
             {
                 _previewData = File.ReadAllBytes(ofd.FileName);
             }

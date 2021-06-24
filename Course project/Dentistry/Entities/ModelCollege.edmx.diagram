@@ -5,25 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="092ec1b11ff94160a8466f39dcd8cf07" Name="Diagram1" ZoomLevel="105">
-        <EntityTypeShape EntityType="DentistryRLModel.Author" Width="1.5" PointX="8.75" PointY="1.375" />
-        <EntityTypeShape EntityType="DentistryRLModel.Client" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="DentistryRLModel.ClientCoupon" Width="1.5" PointX="8.25" PointY="10.25" />
-        <EntityTypeShape EntityType="DentistryRLModel.ClientToothCollection" Width="1.5" PointX="8.25" PointY="5.875" />
-        <EntityTypeShape EntityType="DentistryRLModel.Department" Width="1.5" PointX="1.5" PointY="10.625" />
-        <EntityTypeShape EntityType="DentistryRLModel.Doctor" Width="1.5" PointX="3.75" PointY="10" />
-        <EntityTypeShape EntityType="DentistryRLModel.News" Width="1.5" PointX="11" PointY="1" />
-        <EntityTypeShape EntityType="DentistryRLModel.Position" Width="1.5" PointX="3.75" PointY="2.625" />
-        <EntityTypeShape EntityType="DentistryRLModel.Reception" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="DentistryRLModel.Service" Width="1.5" PointX="0.75" PointY="3.375" />
-        <EntityTypeShape EntityType="DentistryRLModel.sysdiagram" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DentistryRLModel.Tooth" Width="1.5" PointX="6" PointY="11.625" />
-        <EntityTypeShape EntityType="DentistryRLModel.ToothStatu" Width="1.5" PointX="6" PointY="2.125" />
-        <EntityTypeShape EntityType="DentistryRLModel.User" Width="1.5" PointX="6" PointY="5" />
+        <EntityTypeShape EntityType="DentistryRLModel.Appointment" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="DentistryRLModel.Author" Width="1.5" PointX="8.75" PointY="1.625" />
+        <EntityTypeShape EntityType="DentistryRLModel.Client" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="DentistryRLModel.ClientToothCollection" Width="1.5" PointX="11.25" PointY="8.5" />
+        <EntityTypeShape EntityType="DentistryRLModel.Department" Width="1.5" PointX="3.75" PointY="1.75" />
+        <EntityTypeShape EntityType="DentistryRLModel.Doctor" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="DentistryRLModel.Gender" Width="1.5" PointX="3.75" PointY="12.25" />
+        <EntityTypeShape EntityType="DentistryRLModel.News" Width="1.5" PointX="11" PointY="1.25" />
+        <EntityTypeShape EntityType="DentistryRLModel.Position" Width="1.5" PointX="3.75" PointY="5.875" />
+        <EntityTypeShape EntityType="DentistryRLModel.Reception" Width="1.5" PointX="13.5" PointY="8.125" />
+        <EntityTypeShape EntityType="DentistryRLModel.Service" Width="1.5" PointX="11.25" PointY="5" />
+        <EntityTypeShape EntityType="DentistryRLModel.Tooth" Width="1.5" PointX="9" PointY="12.125" />
+        <EntityTypeShape EntityType="DentistryRLModel.ToothStatu" Width="1.5" PointX="9" PointY="5.625" />
+        <EntityTypeShape EntityType="DentistryRLModel.User" Width="1.5" PointX="6" PointY="7.5" />
+        <EntityTypeShape EntityType="DentistryRLModel.XrayReception" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="DentistryRLModel.FK_Appointment_Client" />
+        <AssociationConnector Association="DentistryRLModel.FK_Appointment_Doctor" />
+        <AssociationConnector Association="DentistryRLModel.FK_Appointment_User" />
+        <AssociationConnector Association="DentistryRLModel.FK_Reception_Appointment" />
         <AssociationConnector Association="DentistryRLModel.FK_News_Author" />
         <AssociationConnector Association="DentistryRLModel.FK_ClientToothCollection_Client" />
         <AssociationConnector Association="DentistryRLModel.FK_Reception_Client" />
         <AssociationConnector Association="DentistryRLModel.FK_User_Client" />
-        <AssociationConnector Association="DentistryRLModel.FK_ClientCoupon_User" />
+        <AssociationConnector Association="DentistryRLModel.FK_XrayReception_Client" />
         <AssociationConnector Association="DentistryRLModel.FK_ClientToothCollection_Tooth" />
         <AssociationConnector Association="DentistryRLModel.FK_ClientToothCollection_ToothStatus" />
         <AssociationConnector Association="DentistryRLModel.FK_ClientToothCollection_User1" />
@@ -31,8 +36,11 @@
         <AssociationConnector Association="DentistryRLModel.FK_Reception_Doctor" />
         <AssociationConnector Association="DentistryRLModel.FK_Reception_Doctor1" />
         <AssociationConnector Association="DentistryRLModel.FK_User_Doctor" />
+        <AssociationConnector Association="DentistryRLModel.FK_XrayReception_Doctor" />
+        <AssociationConnector Association="DentistryRLModel.FK_User_Gender" />
         <AssociationConnector Association="DentistryRLModel.FK_User_Position" />
         <AssociationConnector Association="DentistryRLModel.FK_Reception_Service1" />
+        <AssociationConnector Association="DentistryRLModel.FK_XrayReception_Tooth1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

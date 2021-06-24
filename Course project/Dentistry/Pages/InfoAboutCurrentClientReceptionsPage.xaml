@@ -1,0 +1,47 @@
+﻿<Page x:Class="Dentistry.Pages.InfoAboutCurrentClientReceptionsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dentistry.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Информация о приеме">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid  Grid.Row="1" x:Name="DGridReceptions" AutoGenerateColumns="False" CanUserAddRows="False"> 
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Дата приема" Binding="{Binding DateReception, StringFormat={}dd.MM.yyyy HH:mm}" CanUserReorder="False"/>
+                <DataGridTextColumn Width="*" Header="Врач" Binding="{Binding Doctor.FullNameDoctor}"/>
+                <DataGridTextColumn Width="*" Header="Диагноз" Binding="{Binding DiagnosisReception}"/>
+                <DataGridTextColumn Width="*" Header="Услуга" Binding="{Binding Service.NameService}"/>
+                <DataGridTextColumn Width="*" Header="Цена" Binding="{Binding Service.PriceService, StringFormat={}{0} руб.}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox Style="{StaticResource TboxSearch}" Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock HorizontalAlignment="Right" TextAlignment="Right" Text="Сортировка по:" Style="{StaticResource CommonText}" Width="160"></TextBlock>
+            <ComboBox IsEditable="True" Background="White" FontFamily="Times New Roman" FontSize="14"  HorizontalAlignment="Right" Name="ComboFilter" SelectionChanged="ComboFilter_SelectionChanged" SelectedIndex="0">
+                <ComboBoxItem Content="Дата приема"></ComboBoxItem>
+                <ComboBoxItem Content="Врач"></ComboBoxItem>
+                <ComboBoxItem Content="Услуга"></ComboBoxItem>
+                <ComboBoxItem Content="Диагноз"></ComboBoxItem>
+                <ComboBoxItem Content="Цена"></ComboBoxItem>
+                
+            </ComboBox>
+        </StackPanel>
+        
+
+    </Grid>
+</Page>
+

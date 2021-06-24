@@ -1,21 +1,26 @@
 ﻿
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\App.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\AddReceptionPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\Admin'sReceptionsPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\AdminMenuPage.xaml;;
-FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\CurrentReceptionsPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\DoctorMenuPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\DoctorPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\EditDoctorPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutAppointmentsPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutCurrentClientReceptionsPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutDoctorReceptionPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutDoctorsPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutReceptionsPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\InfoAboutUsersPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\LoginPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\MainWindow.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\MedicalCouponPage.xaml;;
-FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\NewsPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\DocotrsInfoPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\PersonalAreaPage.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\ReceptionCouponPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\RegPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\ReportClientPage.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\Pages\ReportDoctorPage.xaml;;
-FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\UserControls\NewsUserControl.xaml;;
+FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\UserControls\Dental_X-rayUserControl.xaml;;
 FC:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\UserControls\ToothStatusUserControl.xaml;;
 

@@ -30,8 +30,9 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             LoadAndUpdateData();
+            ComboGender.ItemsSource = AppData.Context.Genders.ToList();
 
-           
+
 
 
         }
@@ -79,7 +80,7 @@ namespace Dentistry.Pages
 
         private void Tooth_MouseEnter(object sender, MouseEventArgs e)
         {
-           
+
 
 
         }
@@ -99,12 +100,9 @@ namespace Dentistry.Pages
             {
 
                 case 2:
-                    NavigationService.Navigate(new Pages.MedicalCouponPage());
+                    NavigationService.Navigate(new Pages.NewsPage());
                     break;
 
-                case 3:
-                    NavigationService.Navigate(new Pages.MedicalCouponPage());
-                    break;
 
                 default:
                     break;
@@ -184,7 +182,9 @@ namespace Dentistry.Pages
                 _currentUser.NameUser = TBoxName.Text;
                 _currentUser.LastNameUser = TBoxLastName.Text;
                 _currentUser.PatronymicUser = TBoxPatronymic.Text;
-                _currentUser.DateOfBirthUser = DtpBirthDate.SelectedDate;
+                _currentUser.DateOfBirthUser = DtpBirthDate.Value;
+                _currentUser.Client.AddressClient = TBoxAddress.Text;
+                _currentUser.Gender = ComboGender.SelectedItem as Entities.Gender;
                 _currentUser.LoginUser = TBoxLogin.Text;
                 _currentUser.PasswordUser = PBoxPass.Password;
                 _currentUser.Client.SeriesOfPassportClient = TBoxSerie.Text;
@@ -193,13 +193,27 @@ namespace Dentistry.Pages
                 if (_previewData != null)
                     _currentUser.PreviewUser = _previewData;
 
-                
-                
+
+
             }
             AppData.Context.SaveChanges();
             AppData.Context.Users.ToList();
             MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
 
+        private void HLinkAllReceptions_Click(object sender, RoutedEventArgs e)
+        {
+            var UserId = Properties.Settings.Default.UserID;
+            var currentUser = AppData.Context.Receptions.ToList().FirstOrDefault(p => p.IdClient == UserId);
+            if (currentUser != null)
+            {
+                NavigationService.Navigate(new InfoAboutCurrentClientReceptionsPage());
+
+            }
+            else
+            {
+                MessageBox.Show("У вас еще не было записей на прием", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
 }

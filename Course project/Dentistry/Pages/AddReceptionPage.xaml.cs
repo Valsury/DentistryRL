@@ -24,6 +24,7 @@ namespace Dentistry.Pages
         public AddReceptionPage(Entities.Reception selectedReception)
         {
             InitializeComponent();
+            UpdateData();
 
 
 
@@ -37,11 +38,12 @@ namespace Dentistry.Pages
             {
                 _currentReception = selectedReception;
 
-                //(ComboClients.SelectedItem as Entities.User).Client.IdClient = _currentReception.Client.FullNameClient;
-                //(ComboDoctors.SelectedItem as Entities.User).Doctor.IdDoctor = _currentReception.Doctor.FullNameDoctor;
+                ComboClients.SelectedItem  = _currentReception.Client;
+                ComboDoctors.SelectedItem  = _currentReception.Doctor;
                 ComboServices.SelectedItem = _currentReception.Service.NameService;
-                DPickerReceptionDate.SelectedDate = _currentReception.DateReception;
+                DPickerReceptionDate.Value = _currentReception.DateReception;
                 TBoxDiagnosis.Text = _currentReception.DiagnosisReception;
+                TBoxPayment.Text = _currentReception.PaymentStatus;
                BtnAddReception.Content = "Изменить";
                 Title = "Редактирование данных о приеме";
             }
@@ -92,8 +94,9 @@ namespace Dentistry.Pages
                 _currentReception.Client = (ComboClients.SelectedItem as Entities.User).Client;
                 _currentReception.Doctor = (ComboDoctors.SelectedItem as Entities.User).Doctor;
                 _currentReception.Service = ComboServices.SelectedItem as Entities.Service;
-                _currentReception.DateReception = DPickerReceptionDate.SelectedDate;
+                _currentReception.DateReception = DPickerReceptionDate.Value;
               _currentReception.DiagnosisReception = TBoxDiagnosis.Text;
+                _currentReception.PaymentStatus = TBoxPayment.Text;
 
 
 
@@ -112,16 +115,19 @@ namespace Dentistry.Pages
 
             else
             {
-                if (ComboClients.SelectedItem != null && ComboDoctors.SelectedItem != null && ComboServices.SelectedItem != null && TBoxDiagnosis.Text != "" && DPickerReceptionDate.SelectedDate != null)
+                if (ComboClients.SelectedItem != null && ComboDoctors.SelectedItem != null && ComboServices.SelectedItem != null && TBoxDiagnosis.Text != "" && DPickerReceptionDate.Value != null)
                 {
+                    var currentclient = (ComboClients.SelectedItem as Entities.User).Client;
+                    var currentdoctor = (ComboDoctors.SelectedItem as Entities.User).Doctor;
                     _currentReception = new Entities.Reception
                     {
                         IdReception = AppData.Context.Receptions.ToList().Max(P => P.IdReception) + 1,
-                        DateReception = DPickerReceptionDate.SelectedDate,
-                        Client= (ComboClients.SelectedItem as Entities.User).Client,
-                    Doctor = (ComboDoctors.SelectedItem as Entities.User).Doctor,
+                        DateReception = DPickerReceptionDate.Value,
+                        Client= currentclient,
+                    Doctor = currentdoctor,
                         Service = (ComboServices.SelectedItem as Entities.Service),
                         DiagnosisReception = TBoxDiagnosis.Text
+                        
                     };
 
                     AppData.Context.Receptions.Add(_currentReception);

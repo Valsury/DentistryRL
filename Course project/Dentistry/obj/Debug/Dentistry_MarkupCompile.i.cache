@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\valsu\Desktop\Dentistry\Course project\Dentistry\App.xaml
-18-1820488633
+23-1583645036
 22012425350
-45838949030
-29-2019832905
-Pages\AddReceptionPage.xaml;Pages\AdminMenuPage.xaml;Pages\CurrentReceptionsPage.xaml;Pages\DoctorPage.xaml;Pages\EditDoctorPage.xaml;Pages\InfoAboutDoctorsPage.xaml;Pages\InfoAboutReceptionsPage.xaml;Pages\InfoAboutUsersPage.xaml;Pages\LoginPage.xaml;MainWindow.xaml;Pages\MedicalCouponPage.xaml;Pages\NewsPage.xaml;Pages\PersonalAreaPage.xaml;Pages\RegPage.xaml;Pages\ReportClientPage.xaml;Pages\ReportDoctorPage.xaml;UserControls\NewsUserControl.xaml;UserControls\ToothStatusUserControl.xaml;
+511286921071
+151709038638
+Pages\AddReceptionPage.xaml;Pages\Admin'sReceptionsPage.xaml;Pages\AdminMenuPage.xaml;Pages\DoctorMenuPage.xaml;Pages\DoctorPage.xaml;Pages\EditDoctorPage.xaml;Pages\InfoAboutAppointmentsPage.xaml;Pages\InfoAboutCurrentClientReceptionsPage.xaml;Pages\InfoAboutDoctorReceptionPage.xaml;Pages\InfoAboutDoctorsPage.xaml;Pages\InfoAboutReceptionsPage.xaml;Pages\InfoAboutUsersPage.xaml;Pages\LoginPage.xaml;MainWindow.xaml;Pages\MedicalCouponPage.xaml;Pages\DocotrsInfoPage.xaml;Pages\PersonalAreaPage.xaml;Pages\ReceptionCouponPage.xaml;Pages\RegPage.xaml;Pages\ReportClientPage.xaml;Pages\ReportDoctorPage.xaml;UserControls\Dental_X-rayUserControl.xaml;UserControls\ToothStatusUserControl.xaml;
 
-False
+True
 

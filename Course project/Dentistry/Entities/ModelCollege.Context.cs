@@ -25,19 +25,20 @@ namespace Dentistry.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<ClientCoupon> ClientCoupons { get; set; }
         public virtual DbSet<ClientToothCollection> ClientToothCollections { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Reception> Receptions { get; set; }
         public virtual DbSet<Service> Services { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tooth> Teeth { get; set; }
         public virtual DbSet<ToothStatu> ToothStatus { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<XrayReception> XrayReceptions { get; set; }
     }
 }

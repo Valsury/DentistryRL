@@ -24,6 +24,7 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             LoadAndUpdateData();
+            
         }
 
         private void LoadAndUpdateData()
@@ -46,57 +47,57 @@ namespace Dentistry.Pages
 
         private void TblockDate_Loaded(object sender, RoutedEventArgs e)
         {
-            TblockDate.Text = DateTime.Now.ToString("yyyy.MM.dd");
+            
 
-
+     
 
         }
 
         private void TblockAge_Loaded(object sender, RoutedEventArgs e)
         {
-            int userId = Properties.Settings.Default.UserID;
-            var currentUser = AppData.Context.Users.ToList().FirstOrDefault(p => p.IdUser == userId);
-            var Bday = currentUser.DateOfBirthUser.Value;
+        //    int userId = Properties.Settings.Default.UserID;
+        //    var currentUser = AppData.Context.Users.ToList().FirstOrDefault(p => p.IdUser == userId);
+        //    var Bday = currentUser.DateOfBirthUser.Value;
 
-            DateTime now = DateTime.Today;
-            var age = now.Year - Bday.Year;
-            if (Bday > now.AddYears(-age)) age--;
+        //    DateTime now = DateTime.Today;
+        //    var age = now.Year - Bday.Year;
+        //    if (Bday > now.AddYears(-age)) age--;
 
-            int currentAge = age;
-            string text;
-            int last = currentAge % 10;
-            int beforelast;
-            if (currentAge.ToString().Length == 3)
-                beforelast = int.Parse(currentAge.ToString()[1].ToString());
-            else if (currentAge.ToString().Length == 2)
-                beforelast = int.Parse(currentAge.ToString()[0].ToString());
-            else
-                beforelast = 0;
+        //    int currentAge = age;
+        //    string text;
+        //    int last = currentAge % 10;
+        //    int beforelast;
+        //    if (currentAge.ToString().Length == 3)
+        //        beforelast = int.Parse(currentAge.ToString()[1].ToString());
+        //    else if (currentAge.ToString().Length == 2)
+        //        beforelast = int.Parse(currentAge.ToString()[0].ToString());
+        //    else
+        //        beforelast = 0;
 
-            switch(beforelast)
-            {
-                case 1:
-                    text = "лет";
-                    break;
-                default:
-                    switch(last)
-                    {
-                        case 1:
-                            text = "год";
-                            break;
+        //    switch(beforelast)
+        //    {
+        //        case 1:
+        //            text = "лет";
+        //            break;
+        //        default:
+        //            switch(last)
+        //            {
+        //                case 1:
+        //                    text = "год";
+        //                    break;
 
-                        case int n when n>= 2 && n <=4:
-                            text = "годa";
-                            break;
-                        default:
-                            text = "лет";
-                            break;
+        //                case int n when n>= 2 && n <=4:
+        //                    text = "годa";
+        //                    break;
+        //                default:
+        //                    text = "лет";
+        //                    break;
                                 
-                    }
-                    break;
-            }
+        //            }
+        //            break;
+        //    }
 
-            TblockAge.Text = currentAge + " " + text;
+        //    TblockAge.Text = currentAge + " " + text;
 
         }
 
@@ -121,7 +122,6 @@ namespace Dentistry.Pages
         private void ComboDoctors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var currentDocotor = ComboDoctors.SelectedItem as Entities.User;
-            TblockDoctor.Text = currentDocotor.FullName.ToString();
            
         }
             
@@ -130,22 +130,40 @@ namespace Dentistry.Pages
         {
             if(ComboDoctors.SelectedItem != null && TboxComplaint.Text != null)
             {
-                Random rnd = new Random();
-                int CardValue = rnd.Next(0, 1000);
 
-                TblockNumber.Text = CardValue.ToString();
+                //PrintDialog printDialog = new PrintDialog();
+                //if (printDialog.ShowDialog() == true)
+                //{
+                //    GridCanvas.Visibility = Visibility.Hidden;
 
-                PrintDialog printDialog = new PrintDialog();
-                if (printDialog.ShowDialog() == true)
+                //    printDialog.PrintVisual(CanvasCoupon, "Распечатываем элемент Canvas");
+
+                //    CanvasCoupon.LayoutTransform = null;
+                //    GridCanvas.Visibility = Visibility.Visible;
+                //}
+                if(TboxComplaint.Text!="")
                 {
-                    GridCanvas.Visibility = Visibility.Hidden;
+                    Entities.Appointment currAppointment = new Entities.Appointment
+                    {
+                        IdAppointment = AppData.Context.Appointments.ToList().Max(P => P.IdAppointment) + 1,
+                        DateAppointment = DPSelectedDate.Value,
+                        IdClient = Properties.Settings.Default.UserID,
+                        IdDoctor = (ComboDoctors.SelectedItem as Entities.User).Doctor.IdDoctor,
+                        IdUser = Properties.Settings.Default.UserID,
+                        ComplaintAppointment = TboxComplaint.Text
+                    };
 
-                    printDialog.PrintVisual(CanvasCoupon, "Распечатываем элемент Canvas");
-
-                    CanvasCoupon.LayoutTransform = null;
-                    GridCanvas.Visibility = Visibility.Visible;
+                    AppData.Context.Appointments.Add(currAppointment);
+                    AppData.Context.Appointments.ToList();
+                    AppData.Context.SaveChanges();
+                    MessageBox.Show("Успешно!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    NavigationService.GoBack();
                 }
-                NavigationService.GoBack();
+                else
+                {
+                    MessageBox.Show("Заполните поле для жалоб!", "Информация", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+
             }
             else
             {
@@ -158,11 +176,8 @@ namespace Dentistry.Pages
 
         }
 
-        private void BtnAddComplaint_Click(object sender, RoutedEventArgs e)
-        {
-            TblockComplaint.Text = TboxComplaint.Text;
 
-        }
+
     }
     
 }

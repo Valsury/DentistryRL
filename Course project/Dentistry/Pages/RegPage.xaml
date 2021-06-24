@@ -1,4 +1,4 @@
-﻿<Page x:Class="Dentistry.Pages.RegPage"
+﻿<Page xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  x:Class="Dentistry.Pages.RegPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -136,12 +136,23 @@
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <DatePicker  Name="DtpBirthDate">
-                    </DatePicker>
+                    <xctk:DateTimePicker Name="DtpBirthDate"
+                                         Width="200"
+                                   Height="25"
+                             Format="Custom"
+                                         FormatString="dd/mm/yyyy"
+                                   Watermark="Выберите дату рождения"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBox Name="TBoxSerie" Style="{StaticResource TboxSeries}" ></TextBox>
                     <TextBox Name="TBoxNumber" Style="{StaticResource TboxNumber}"></TextBox>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <xctk:WatermarkComboBox  Margin="10" Watermark="Пол:" Name="ComboGender" IsEditable="True" Background="Transparent"
+                                                Width="150"
+                                                DisplayMemberPath="NameGender"/>
+                    <xctk:WatermarkTextBox Margin="10" Watermark="Адрес:" Name="TBoxAddress"  Background="Transparent"
+                                                Width="150"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBox Name="TBoxPhoneNumber" Style="{StaticResource TboxPhonenumber}"></TextBox>

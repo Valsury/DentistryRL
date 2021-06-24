@@ -34,7 +34,7 @@ namespace Dentistry
 
         private void BtnInfoReceptions_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Pages.InfoAboutReceptionsPage());
+            NavigationService.Navigate(new Dentistry.Pages.Admin_sReceptionsPage());
         }
 
         private void BtnInfoDoctors_Click(object sender, RoutedEventArgs e)

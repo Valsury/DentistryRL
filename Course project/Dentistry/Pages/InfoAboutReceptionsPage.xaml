@@ -16,14 +16,24 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <DataGrid IsVisibleChanged="DGridReceptions_IsVisibleChanged" Grid.Row="1" x:Name="DGridReceptions" AutoGenerateColumns="False">
+        <DataGrid  Grid.Row="1" x:Name="DGridReceptions" AutoGenerateColumns="False" CanUserAddRows="False"> 
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Дата приема" Binding="{Binding DateReception, StringFormat={}dd.MM.yyyy}" CanUserReorder="False"/>
+                <DataGridTextColumn Width="*" Header="Дата приема" Binding="{Binding DateReception, StringFormat={}dd.MM.yyyy HH:mm}" CanUserReorder="False"/>
                 <DataGridTextColumn Width="*" Header="Врач" Binding="{Binding Doctor.FullNameDoctor}"/>
                 <DataGridTextColumn Width="*" Header="Пациент" Binding="{Binding Client.FullNameClient}"/>
-                <DataGridTextColumn Width="*" Header="Услуга" Binding="{Binding Service.NameService}"/>
                 <DataGridTextColumn Width="*" Header="Диагноз" Binding="{Binding DiagnosisReception}"/>
+                <DataGridTextColumn Width="*" Header="Услуга" Binding="{Binding Service.NameService}"/>
                 <DataGridTextColumn Width="*" Header="Цена" Binding="{Binding Service.PriceService, StringFormat={}{0} руб.}"/>
+                <DataGridTemplateColumn Width="*" Header="Отчет">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource LinkText}" HorizontalAlignment="Center">
+                                <Hyperlink x:Name="HLinkFullInfo" Click="HLinkFullInfo_Click">
+                                    Сформировать</Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -39,6 +49,7 @@
                 <ComboBoxItem Content="Услуга"></ComboBoxItem>
                 <ComboBoxItem Content="Диагноз"></ComboBoxItem>
                 <ComboBoxItem Content="Цена"></ComboBoxItem>
+                
             </ComboBox>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">

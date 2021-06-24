@@ -3,6 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:cor="clr-namespace:System;assembly=mscorlib"
+    xmlns:xfc="clr-namespace:XamlFlair.Controls;assembly=XamlFlair.WPF"
+    xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
       xmlns:local="clr-namespace:Dentistry"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -38,42 +41,68 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type PasswordBox}">
-                        <Border CornerRadius="10" x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="LightGray">
+                        <Border CornerRadius="10" x:Name="border" Background="{TemplateBinding Background}" BorderBrush="LightGray" BorderThickness="0 0 0 3">
                             <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0" ScrollViewer.CanContentScroll="True" x:Name="PART_ContentHost"/>
                         </Border>
-               
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Page.Resources>
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="320"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox Name="TBoxLogin"  Text="{Binding Login}" Style="{StaticResource TboxLogin}" TextChanged="TBoxLogin_TextChanged" ></TextBox>
+        <Grid  xf:Animations.Primary="{StaticResource FadeIn}">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Dentistry;component/Assets/DentistryWall.jpg"/>
+            </Grid.Background>
+        </Grid>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBox BorderThickness="0 0 0 3" Name="TBoxLogin"  Text="{Binding Login}" Style="{StaticResource TboxLogin}" TextChanged="TBoxLogin_TextChanged" ></TextBox>
 
                 <Grid>
-                    <PasswordBox Name="PBoxPassword" Style="{StaticResource PBoxPass}">
-                        
+                    <PasswordBox Name="PBoxPassword"
+                                 Style="{StaticResource PBoxPass}"
+                                PasswordChanged="PBoxPassword_PasswordChanged">
+
                     </PasswordBox>
                     <TextBlock Name="TBlockPass" IsHitTestVisible="False" Text="Пароль" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
                 </Grid>
-               
+
             </StackPanel>
 
             <CheckBox Name="CheckRemebmer" Content="Запомнить меня" HorizontalAlignment="Center"></CheckBox>
-            <Button IsDefault="True" Name="BtnNavigate" Height="30" Width="175" Content="Войти"  Click="BtnNavigate_Click" HorizontalAlignment="Center">
-              
+            <Button IsDefault="True" Name="BtnNavigate" Height="30" 
+                    Width="175" Content="Войти"  Click="BtnNavigate_Click" 
+                    HorizontalAlignment="Center"
+                    Foreground="Gray"
+                    Background="Transparent">
+
             </Button>
             <TextBlock Style="{StaticResource LinkText}" HorizontalAlignment="Center">
                У вас ещё нет аккаунта? <Hyperlink Click="Hyperlink_Click">Зарегистрироваться</Hyperlink>
             </TextBlock>
-            
-            
+
+
         </StackPanel>
-        <Button x:Name="BtnNews" HorizontalAlignment="Left" VerticalAlignment="Top" Content="О нас" Click="BtnNews_Click"></Button>
+
     </Grid>
-    
-   
+
+
 </Page>

@@ -1,4 +1,4 @@
-﻿<Page x:Class="Dentistry.Pages.PersonalAreaPage"
+﻿<Page xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  x:Class="Dentistry.Pages.PersonalAreaPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -228,7 +228,7 @@
                                     <TextBlock Margin="1,5,10,0" 
                                                Grid.Row="1"
                                                Grid.Column="1"
-                                   Text="{Binding GenderUser}" 
+                                   Text="{Binding Gender.NameGender}" 
                                    Style="{StaticResource CommonText}"
                                        TextAlignment="Left"
                                                FontSize="14"
@@ -271,18 +271,19 @@
 
         <Grid Grid.Column="1"
               Grid.ColumnSpan="2"
-              Height="30"
-              Width="415"
+              Height="35"
+              Width="700"
               VerticalAlignment="Top"
               Background="White"
-              Margin="10 10 10 0">
+              Margin="20 10 10 0">
             
             <StackPanel Orientation="Horizontal">
                 
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Dentistry;component/Assets/info.png"
-                       Height="20"></Image>
-                    <TextBlock Height="20">
+                    <Image Source="/Dentistry;component/Assets/Icons/info.png"
+                       Height="25"></Image>
+                    <TextBlock Height="20"
+                               FontSize="16">
                     <Hyperlink
                         Name="HLinkPersonalInfo"
                         Click="HLinkPersonalInfo_Click">Персональная информация</Hyperlink>
@@ -290,9 +291,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Dentistry;component/Assets/ToothIco.png"
-                       Height="20"></Image>
-                    <TextBlock Height="20">
+                    <Image Source="/Dentistry;component/Assets/Icons/ToothIco.png"
+                       Height="25"></Image>
+                    <TextBlock Height="20"
+                               FontSize="16">
                     <Hyperlink
                         Name="HLinkTeethCard"
                         Click="HLinkTeethCard_Click">Зубная карта</Hyperlink>
@@ -300,9 +302,19 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Dentistry;component/Assets/AppointmentIco.png"
-                       Height="20"></Image>
-                    <TextBlock Height="20">
+                    <Image Source="/Dentistry;component/Assets/Icons/AppointmentIco.png"
+                       Height="25"></Image>
+                    <TextBlock Height="20"
+                               FontSize="16">
+                    <Hyperlink Name="HLinkAllReceptions" Click="HLinkAllReceptions_Click">История приемов</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Dentistry;component/Assets/Icons/ReceptionIco.png"
+                       Height="25"></Image>
+                    <TextBlock Height="20"
+                               FontSize="16">
                     <Hyperlink Click="Hyperlink_Click">Запись на прием</Hyperlink>
                     </TextBlock>
                 </StackPanel>
@@ -340,7 +352,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Background="White"
-            Width="700"
+            Width="710"
             Margin="10 10 0 0"
             >
             <Grid.ColumnDefinitions>
@@ -359,7 +371,7 @@
                         Width="170">
                 <TextBlock Style="{StaticResource CommonText}"
                  TextAlignment="Justify"
-                    Width="150">З - Здоров
+                    Width="150">П - пломбирован
                 </TextBlock>
                 <TextBlock
                     Style="{StaticResource CommonText}"
@@ -377,7 +389,10 @@
                     Style="{StaticResource CommonText}"
                     TextAlignment="Justify"
                     Width="150">У - Удален</TextBlock>
-                <TextBlock Name="text"></TextBlock>
+                <TextBlock
+                    Style="{StaticResource CommonText}"
+                    TextAlignment="Justify"
+                    Width="150">К - Коронка</TextBlock>
             </StackPanel>
         </Grid>
 
@@ -387,7 +402,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Background="White"
-            Width="700"
+            Width="710"
             Margin="10 10 0 0"
             Visibility="Collapsed"
             >
@@ -403,34 +418,48 @@
 
                 <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox Text="{Binding LastNameUser}" Name="TBoxLastName" Style="{StaticResource TboxLastname}"></TextBox>
-                            <TextBox Text="{Binding NameUser}" Name="TBoxName" Style="{StaticResource TboxUsername}"></TextBox>
-                            <TextBox Text="{Binding PatronymicUser}" Name="TBoxPatronymic" Style="{StaticResource TboxPatronymic}"></TextBox>
+                       <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox Text="{Binding LastNameUser}"  Name="TBoxLastName" Style="{StaticResource TboxLastname}"></TextBox>
+                    <TextBox Text="{Binding NameUser}"  Name="TBoxName" Style="{StaticResource TboxUsername}"></TextBox>
+                    <TextBox Text="{Binding PatronymicUser}" Name="TBoxPatronymic" Style="{StaticResource TboxPatronymic}"></TextBox>
 
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <DatePicker  Name="DtpBirthDate" SelectedDate="{Binding DateOfBirthUser}">
-                            </DatePicker>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox Text="{Binding Client.SeriesOfPassportClient}" Name="TBoxSerie" Style="{StaticResource TboxSeries}" ></TextBox>
-                            <TextBox Text="{Binding Client.NumberOfPassportClient}" Name="TBoxNumber" Style="{StaticResource TboxNumber}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox Text="{Binding Client.PhoneNumberClient}" Name="TBoxPhoneNumber" Style="{StaticResource TboxPhonenumber}"></TextBox>
-                        </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <xctk:DateTimePicker Name="DtpBirthDate"
+                                         Width="200"
+                                   Height="25"
+                             Format="Custom"
+                                         FormatString="dd/MM/yyyy"
+                                   Watermark="Выберите дату рождения" Value="{Binding DateOfBirthUser}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox Text="{Binding Client.SeriesOfPassportClient}" Name="TBoxSerie" Style="{StaticResource TboxSeries}" ></TextBox>
+                    <TextBox Text="{Binding Client.NumberOfPassportClient}" Name="TBoxNumber" Style="{StaticResource TboxNumber}"></TextBox>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <xctk:WatermarkComboBox  Margin="10" Watermark="Пол:" Name="ComboGender" IsEditable="True" Background="Transparent"
+                                                Width="150"
+                                                DisplayMemberPath="NameGender" DataContext="{Binding Gender.NameGender}"/>
+                                <xctk:WatermarkTextBox Margin="10" Watermark="Адрес:" Text="{Binding Client.AddressClient}" Name="TBoxAddress"  Background="Transparent"
+                                                Width="150"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox  Text="{Binding Client.PhoneNumberClient}" Name="TBoxPhoneNumber" Style="{StaticResource TboxPhonenumber}"></TextBox>
+                </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox Text="{Binding LoginUser}" Name="TBoxLogin" Style="{StaticResource TboxLogin}"></TextBox>
-                            <Grid Name="GridPass">
-                                <PasswordBox Name="PBoxPass" Style="{StaticResource PBoxPass}" ></PasswordBox>
-                                <TextBlock Name="TBlockPass" IsHitTestVisible="False" Text="Пароль" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
-                            </Grid>
-                            <Grid>
-                                <PasswordBox Name="PBoxComfPass" Style="{StaticResource PBoxComfPass}" HorizontalContentAlignment="Left" ></PasswordBox>
-                                <TextBlock Name="TBlockComfPass" IsHitTestVisible="False" Text="Подтверждение пароля" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
-                            </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox Text="{Binding LoginUser}"  Name="TBoxLogin" Style="{StaticResource TboxLogin}"></TextBox>
+                    <Grid Name="GridPass">
+                        <PasswordBox Name="PBoxPass" Style="{StaticResource PBoxPass}" ></PasswordBox>
+                        <TextBlock Name="TBlockPass" IsHitTestVisible="False" Text="Пароль" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
+                    </Grid>
+                    <Grid>
+                        <PasswordBox Name="PBoxComfPass" Style="{StaticResource PBoxComfPass}" HorizontalContentAlignment="Left" ></PasswordBox>
+                        <TextBlock Name="TBlockComfPass" IsHitTestVisible="False" Text="Подтверждение пароля" Margin="12 12 0 0" Foreground="Gray"></TextBlock>
+                    </Grid>
+                   
+                </StackPanel>
 
                         </StackPanel>
 
@@ -454,6 +483,8 @@
                         </StackPanel>
 
                     </StackPanel>
+
+
                 </StackPanel>
 
                
@@ -464,13 +495,14 @@
             Grid.Column="1"
             Grid.Row="2"
             Background="White"
-            Width="800"
+            Width="710"
             Height="130"
             Margin="10 0 0 0"
             ></Grid>
 
 
         <Canvas Name="CanvasTeeth" Grid.Column="1" Grid.Row="1" Margin="-240 -60 0 0" >
+            
             <usercontrols:ToothStatusUserControl x:Name="Tooth11" Tag="11" Source="/Dentistry;component/Assets/Teeth/11.png" Canvas.Left="353" Canvas.Top="84" Margin="0" Width="29" Height="37" MouseEnter="Tooth_MouseEnter"></usercontrols:ToothStatusUserControl>
             <usercontrols:ToothStatusUserControl x:Name="Tooth12"  Tag="12" Source="/Dentistry;component/Assets/Teeth/12.png" Canvas.Left="328" Canvas.Top="87" Margin="0" Width="36" Height="45" MouseEnter="Tooth_MouseEnter"/>
             <usercontrols:ToothStatusUserControl x:Name="Tooth13"  Tag="13" Source="/Dentistry;component/Assets/Teeth/13.png" Canvas.Left="313" Canvas.Top="102" Margin="0" Width="30" Height="38" MouseEnter="Tooth_MouseEnter"/>

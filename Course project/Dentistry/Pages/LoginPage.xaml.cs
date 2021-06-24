@@ -78,7 +78,7 @@ namespace Dentistry
 
                 case 3:
                     SaveUserSettings(currentUser.IdUser, CheckRemebmer.IsChecked.Value);
-                    NavigationService.Navigate(new Pages.DoctorPage());
+                    NavigationService.Navigate(new Pages.DoctorMenuPage());
 
                     //MessageBox.Show("Функция недоступна!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
@@ -153,5 +153,23 @@ namespace Dentistry
             else
                 TBlockPass.Visibility = Visibility.Visible;
         }
+
+        private void PBoxPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PBoxPassword.Password!="")
+            {
+                BtnNavigate.IsEnabled = true;
+                BtnNavigate.Background = System.Windows.Media.Brushes.Blue;
+                BtnNavigate.Foreground = System.Windows.Media.Brushes.White;
+            }
+            else
+            {
+                BtnNavigate.IsEnabled = false;
+                BtnNavigate.Background = System.Windows.Media.Brushes.Transparent;
+                BtnNavigate.Foreground = System.Windows.Media.Brushes.Gray;
+            }
+        }
+
+
     }
 }

@@ -4,13 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Dentistry"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+          xmlns:cor="clr-namespace:System;assembly=mscorlib"
+    xmlns:xfc="clr-namespace:XamlFlair.Controls;assembly=XamlFlair.WPF"
+    xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Меню администратора" Background="White">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Name="BtnInfoDoctors" Click="BtnInfoDoctors_Click" Content="Врачи"></Button>
+        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  Name="BtnInfoDoctors" Click="BtnInfoDoctors_Click" Content="Врачи"></Button>
             <Button Name="BtnInfoClients" Click="BtnInfoClients_Click" Content="Пациенты"></Button>
             <Button Name="BtnInfoReceptions" Click="BtnInfoReceptions_Click" Content="Приемы пациентов"></Button>
         </StackPanel>

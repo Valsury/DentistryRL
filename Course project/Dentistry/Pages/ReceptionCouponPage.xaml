@@ -1,0 +1,197 @@
+﻿<Page x:Class="Dentistry.Pages.ReceptionCouponPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dentistry.Pages" xmlns:usercontrols="clr-namespace:Dentistry.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Информация о приеме">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="340"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridCanvas">
+            <Canvas Name="CanvasCoupon"
+                >
+                <Canvas.Background>
+                    <ImageBrush 
+                    ImageSource="/Dentistry;component/Assets/ReceptionCoupon.jpg"/>
+                </Canvas.Background>
+
+                <usercontrols:ToothStatusUserControl x:Name="Tooth11" Tag="11"  Canvas.Left="627" Canvas.Top="164" Margin="0" Width="30" Height="30"   RenderTransformOrigin="0.5,0.515"></usercontrols:ToothStatusUserControl>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth12"  Tag="12" Canvas.Left="587" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth13"  Tag="13" Canvas.Left="547" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth14"  Tag="14" Canvas.Left="505" Canvas.Top="164" Margin="0" Width="30" Height="30" ></usercontrols:ToothStatusUserControl>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth15"  Tag="15" Canvas.Left="464" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth16"  Tag="16" Canvas.Left="424" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth17"  Tag="17" Canvas.Left="384" Canvas.Top="164" Margin="0" Width="30" Height="30"  RenderTransformOrigin="0.233,0.533"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth18"  Tag="18" Canvas.Left="344" Canvas.Top="164" Margin="0" Width="30" Height="30"  RenderTransformOrigin="-0.033,0.667"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth21"  Tag="21" Canvas.Left="668" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth22"  Tag="22" Canvas.Left="708" Canvas.Top="164" Margin="0" Width="30" Height="30" RenderTransformOrigin="0.5,0.5" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth23"  Tag="23" Canvas.Left="748" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth24"  Tag="24" Canvas.Left="788" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth25"  Tag="25" Canvas.Left="829" Canvas.Top="164" Margin="0" Width="30" Height="30"  RenderTransformOrigin="0.5,0.567"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth26"  Tag="26" Canvas.Left="872" Canvas.Top="164" Margin="0" Width="30" Height="30"  RenderTransformOrigin="1.733,0.844"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth27"  Tag="27" Canvas.Left="911" Canvas.Top="164" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth28"  Tag="28" Canvas.Left="950" Canvas.Top="164" Margin="0" Width="30" Height="30"  RenderTransformOrigin="1.167,0.833"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth31"  Tag="31" Canvas.Left="668" Canvas.Top="215" Margin="0" Width="30" Height="30"  RenderTransformOrigin="0.256,2.4"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth32"  Tag="32" Canvas.Left="708" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth33"  Tag="33" Canvas.Left="748" Canvas.Top="215" Margin="0" Width="30" Height="30"  RenderTransformOrigin="-0.389,2.522"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth34"  Tag="34" Canvas.Left="788" Canvas.Top="215" Margin="0" Width="30" Height="30"  RenderTransformOrigin="-0.311,2.011"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth35"  Tag="35" Canvas.Left="829" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth36"  Tag="36" Canvas.Left="872" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth37"  Tag="37" Canvas.Left="911" Canvas.Top="215" Margin="0" Width="30" Height="30" ></usercontrols:ToothStatusUserControl>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth38"  Tag="38" Canvas.Left="950" Canvas.Top="215" Margin="0" Width="30" Height="30"  RenderTransformOrigin="0.606,0.455"/>
+                <usercontrols:ToothStatusUserControl x:Name="Tooth41"  Tag="41" Canvas.Left="627" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth42"  Tag="42" Canvas.Left="587" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth43"  Tag="43" Canvas.Left="547" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth44"  Tag="44" Canvas.Left="505" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth45"  Tag="45" Canvas.Left="464" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth46"  Tag="46" Canvas.Left="424" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth47"  Tag="47" Canvas.Left="384" Canvas.Top="215" Margin="0" Width="30" Height="30" />
+                <usercontrols:ToothStatusUserControl x:Name="Tooth48"  Tag="48" Canvas.Left="344" Canvas.Top="215" Margin="0" Width="30" Height="30" RenderTransformOrigin="0.406,0.163"/>
+
+                <TextBlock x:Name="TBlockDiagnosis" 
+                       TextWrapping="Wrap" 
+                       Width="auto" 
+                       Style="{StaticResource CommonText}" 
+                       Canvas.Left="346" Margin="0" 
+                       Canvas.Top="32"></TextBlock>
+                <TextBlock x:Name="TBlockComplaint" 
+                       TextWrapping="Wrap" Width="auto" 
+                       Style="{StaticResource CommonText}" 
+                       Canvas.Left="346" Margin="0" 
+                       Canvas.Top="59"></TextBlock>
+                <TextBlock 
+                FontStyle="Oblique" 
+                Text="№" TextWrapping="Wrap" 
+                Width="auto" 
+                Style="{StaticResource CommonText}" 
+                Canvas.Left="572" 
+                Margin="0" 
+                Canvas.Top="5"></TextBlock>
+                <TextBlock FontStyle="Oblique"
+                       Name="TBlockNumber" 
+                       Loaded="TBoxNumber_Loaded" 
+                       TextWrapping="Wrap" Width="auto"
+                       Style="{StaticResource CommonText}" 
+                       Canvas.Left="590" Margin="0" 
+                       Canvas.Top="5"></TextBlock>
+                <TextBlock Name="TBlockNameClient" 
+                       TextWrapping="Wrap" 
+                       Width="auto" 
+                       Style="{StaticResource CommonText}" 
+                       Canvas.Left="620" Margin="0" 
+                       Canvas.Top="5" 
+                       FontStyle="Oblique"></TextBlock>
+                <TextBlock Name="TBlockDate" 
+                       Loaded="TBlockDate_Loaded" 
+                       TextWrapping="Wrap" Width="auto" 
+                       Style="{StaticResource CommonText}" 
+                       Canvas.Left="10" Margin="0" 
+                       Canvas.Top="310" 
+                       FontStyle="Oblique"></TextBlock>
+                <TextBlock 
+                Name="TBlockBefore"
+                TextWrapping="Wrap" 
+                Width="auto" 
+                Style="{StaticResource CommonText}" 
+                Canvas.Left="346" 
+                Margin="0" 
+                Canvas.Top="86"></TextBlock>
+
+                <TextBlock 
+                Name="TBlockCurrent"
+                TextWrapping="Wrap" 
+                Width="auto" 
+                Style="{StaticResource CommonText}" 
+                Canvas.Left="346" 
+                Margin="0" 
+                Canvas.Top="115"></TextBlock>
+
+                <TextBlock 
+                Name="TBlockRecomendations"
+                TextWrapping="Wrap" 
+                Width="auto" 
+                Style="{StaticResource CommonText}" 
+                Canvas.Left="346" 
+                Margin="0" 
+                Canvas.Top="276"></TextBlock>
+
+
+                <TextBlock 
+                Name="TBlockLegend"
+                TextWrapping="Wrap"
+                    TextAlignment="Left"
+                Width="210" 
+                    FontSize="14"
+                    Text="П - пломбирован, Т - требуется лечение, В - вылечен, И - имплант, К- коронка, У - удален"
+                Style="{StaticResource CommonText}" 
+                Canvas.Left="20" 
+                Margin="0" 
+                Canvas.Top="200"></TextBlock>
+            </Canvas>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel HorizontalAlignment="Center" Margin="0 0 0 0">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Рекомендации" 
+                       TextWrapping="Wrap" 
+                       Width="100"
+                       TextAlignment="Left"
+                       Style="{StaticResource CommonText}"></TextBlock>
+                    <TextBox Name="TBoxCurrentRecomendations"
+                             TextWrapping="Wrap"
+                             Width="200"
+                             Height="30"
+                             BorderThickness="3"
+                             Margin="5"></TextBox>
+                </StackPanel>
+
+
+
+                <Button Name="BtnAdd"
+                        Click="BtnAdd_Click"
+                    FontFamily="Segoe MDL2 Assets" 
+                        Content="&#xE710;"
+                        FontWeight="Bold"
+                        FontSize="16"
+                        Foreground="Black"
+                        BorderThickness="0"
+                        Background="White"
+                        Width="20"
+                        Height="20"
+                        ></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1"     
+                        HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="0 -30 0 0">
+
+
+                <Button Content="&#xE956;" 
+                        FontFamily="Segoe MDL2 Assets"
+                    Name="BtnPrint"
+                    Click="BtnPrint_Click"
+                        Width="50"
+                        Background="Transparent"
+                        Foreground="Black"
+                        FontSize="26"
+                        BorderThickness="0"
+                 ></Button>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Page>

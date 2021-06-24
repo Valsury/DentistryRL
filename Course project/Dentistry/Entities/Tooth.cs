@@ -18,6 +18,7 @@ namespace Dentistry.Entities
         public Tooth()
         {
             this.ClientToothCollections = new HashSet<ClientToothCollection>();
+            this.XrayReceptions = new HashSet<XrayReception>();
         }
     
         public int IdTooth { get; set; }
@@ -26,5 +27,7 @@ namespace Dentistry.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientToothCollection> ClientToothCollections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<XrayReception> XrayReceptions { get; set; }
     }
 }

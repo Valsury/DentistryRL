@@ -28,17 +28,18 @@ namespace Dentistry.Pages
         {
             InitializeComponent();
             ComboDepartments.ItemsSource = AppData.Context.Departments.ToList();
+            ComboGender.ItemsSource = AppData.Context.Genders.ToList();
             if (selectedUser != null)
             {
                 _currentUser = selectedUser;
                 TBoxName.Text = _currentUser.NameUser;
                 TBoxLastName.Text = _currentUser.LastNameUser;
                 TBoxPatronymic.Text = _currentUser.PatronymicUser;
-                DtpBirthDate.SelectedDate = _currentUser.DateOfBirthUser;
+                DtpBirthDate.Value = _currentUser.DateOfBirthUser;
                 TBoxLogin.Text = _currentUser.LoginUser;
                 TBoxWorkExp.Text = _currentUser.Doctor.WorkExperienceDoctor;
                 TBoxPhoneNumber.Text = _currentUser.Doctor.PhoneNumberDoctor;
-                ComboDepartments.SelectedItem = _currentUser.Doctor.Department.NameDepartment;
+                ComboDepartments.SelectedItem = _currentUser.Doctor.Department;
                 TboxEducation.Text = _currentUser.Doctor.EducationDoctor;
                 PBoxPass.Password = _currentUser.PasswordUser;
                 BtnReg.Content = "Изменить";
@@ -74,7 +75,7 @@ namespace Dentistry.Pages
                 _currentUser.NameUser = TBoxName.Text;
                 _currentUser.LastNameUser = TBoxLastName.Text;
                 _currentUser.PatronymicUser = TBoxPatronymic.Text;
-                _currentUser.DateOfBirthUser = DtpBirthDate.SelectedDate;
+                _currentUser.DateOfBirthUser = DtpBirthDate.Value;
                 _currentUser.LoginUser = TBoxLogin.Text;
                 _currentUser.PasswordUser = PBoxPass.Password;
                 _currentUser.Doctor.WorkExperienceDoctor = TBoxWorkExp.Text;
@@ -112,12 +113,13 @@ namespace Dentistry.Pages
                         NameUser = TBoxName.Text,
                         LastNameUser = TBoxLastName.Text,
                         PatronymicUser = TBoxPatronymic.Text,
-                        DateOfBirthUser = DtpBirthDate.SelectedDate,
+                        DateOfBirthUser = DtpBirthDate.Value,
                         IdPosition = 3,
                         LoginUser = TBoxLogin.Text,
+                        IdGender = (ComboGender.SelectedItem as Entities.Gender).IdGender,
                         Doctor = new Entities.Doctor
                         {
-                            IdDoctor = AppData.Context.Doctors.ToList().Max(P => P.IdDoctor) + 1,
+                            IdDoctor = AppData.Context.Users.ToList().Max(P => P.IdUser) + 1,
                             PhoneNumberDoctor = TBoxPhoneNumber.Text,
                             WorkExperienceDoctor = TBoxWorkExp.Text,
                             EducationDoctor = TboxEducation.Text,

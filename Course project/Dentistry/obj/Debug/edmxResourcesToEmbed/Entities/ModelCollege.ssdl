@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DentistryRLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="IdAppointment" />
+    </Key>
+    <Property Name="IdAppointment" Type="int" Nullable="false" />
+    <Property Name="IdClient" Type="int" />
+    <Property Name="IdDoctor" Type="int" />
+    <Property Name="ComplaintAppointment" Type="nvarchar(max)" />
+    <Property Name="DateAppointment" Type="datetime" />
+    <Property Name="IdUser" Type="int" />
+  </EntityType>
   <EntityType Name="Author">
     <Key>
       <PropertyRef Name="IdAuthor" />
@@ -16,15 +27,10 @@
     <Property Name="NumberOfPassportClient" Type="nvarchar" MaxLength="15" />
     <Property Name="PhoneNumberClient" Type="nvarchar" MaxLength="20" />
     <Property Name="AddressClient" Type="nvarchar(max)" />
-  </EntityType>
-  <EntityType Name="ClientCoupon">
-    <Key>
-      <PropertyRef Name="IdClientCoupon" />
-    </Key>
-    <Property Name="IdClientCoupon" Type="int" Nullable="false" />
-    <Property Name="ComplaintClientCoupon" Type="nvarchar(max)" />
-    <Property Name="IdUser" Type="int" />
-    <Property Name="DateOfTheApplication" Type="date" />
+    <Property Name="ChronicDiseases" Type="nvarchar(max)" />
+    <Property Name="PastDiseases" Type="nvarchar(max)" />
+    <Property Name="CurrentDiseases" Type="nvarchar(max)" />
+    <Property Name="BadHabit" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ClientToothCollection">
     <Key>
@@ -52,7 +58,15 @@
     <Property Name="PhoneNumberDoctor" Type="nvarchar" MaxLength="20" />
     <Property Name="IdDepartment" Type="int" />
     <Property Name="EducationDoctor" Type="nvarchar(max)" />
-    <Property Name="EmploymentDateDoctor" Type="date" />
+    <Property Name="EmploymentDateDoctor" Type="datetime" />
+    <Property Name="DescriptionDoctor" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="IdGender" />
+    </Key>
+    <Property Name="IdGender" Type="int" Nullable="false" />
+    <Property Name="NameGender" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -77,11 +91,13 @@
       <PropertyRef Name="IdReception" />
     </Key>
     <Property Name="IdReception" Type="int" Nullable="false" />
-    <Property Name="DateReception" Type="date" />
+    <Property Name="DateReception" Type="datetime" />
     <Property Name="IdClient" Type="int" />
     <Property Name="IdDoctor" Type="int" />
     <Property Name="IdService" Type="int" />
     <Property Name="DiagnosisReception" Type="nvarchar(max)" />
+    <Property Name="IdAppointment" Type="int" />
+    <Property Name="PaymentStatus" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Service">
     <Key>
@@ -90,16 +106,6 @@
     <Property Name="IdService" Type="int" Nullable="false" />
     <Property Name="NameService" Type="nvarchar" MaxLength="30" />
     <Property Name="PriceService" Type="decimal" Precision="18" Scale="2" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Tooth">
     <Key>
@@ -132,17 +138,52 @@
     <Property Name="PreviewUser" Type="varbinary(max)" />
     <Property Name="IdClient" Type="int" />
     <Property Name="IdDoctor" Type="int" />
-    <Property Name="GenderUser" Type="nchar" MaxLength="1" />
+    <Property Name="IdGender" Type="int" />
     <Property Name="ProfessionUser" Type="nvarchar" MaxLength="30" />
   </EntityType>
-  <Association Name="FK_ClientCoupon_User">
+  <EntityType Name="XrayReception">
+    <Key>
+      <PropertyRef Name="IdXrayReception" />
+    </Key>
+    <Property Name="IdXrayReception" Type="int" Nullable="false" />
+    <Property Name="IdTooth" Type="int" />
+    <Property Name="IdClient" Type="int" />
+    <Property Name="IdDoctor" Type="int" />
+    <Property Name="PreviewXray" Type="varbinary(max)" />
+    <Property Name="DateOfXray" Type="date" />
+  </EntityType>
+  <Association Name="FK_Appointment_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="ClientCoupon" Type="Self.ClientCoupon" Multiplicity="*" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="IdUser" />
       </Principal>
-      <Dependent Role="ClientCoupon">
+      <Dependent Role="Appointment">
         <PropertyRef Name="IdUser" />
       </Dependent>
     </ReferentialConstraint>
@@ -219,6 +260,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Reception_Appointment">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+    <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="IdAppointment" />
+      </Principal>
+      <Dependent Role="Reception">
+        <PropertyRef Name="IdAppointment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Reception_Client">
     <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
     <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
@@ -291,6 +344,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_Gender">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="IdGender" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdGender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_Position">
     <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -303,24 +368,69 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_XrayReception_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="IdClient" />
+      </Principal>
+      <Dependent Role="XrayReception">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_XrayReception_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IdDoctor" />
+      </Principal>
+      <Dependent Role="XrayReception">
+        <PropertyRef Name="IdDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_XrayReception_Tooth1">
+    <End Role="Tooth" Type="Self.Tooth" Multiplicity="0..1" />
+    <End Role="XrayReception" Type="Self.XrayReception" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tooth">
+        <PropertyRef Name="IdTooth" />
+      </Principal>
+      <Dependent Role="XrayReception">
+        <PropertyRef Name="IdTooth" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DentistryRLModelStoreContainer">
+    <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ClientCoupon" EntityType="Self.ClientCoupon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ClientToothCollection" EntityType="Self.ClientToothCollection" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reception" EntityType="Self.Reception" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tooth" EntityType="Self.Tooth" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ToothStatus" EntityType="Self.ToothStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_ClientCoupon_User" Association="Self.FK_ClientCoupon_User">
+    <EntitySet Name="XrayReception" EntityType="Self.XrayReception" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Appointment_Client" Association="Self.FK_Appointment_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_User" Association="Self.FK_Appointment_User">
       <End Role="User" EntitySet="User" />
-      <End Role="ClientCoupon" EntitySet="ClientCoupon" />
+      <End Role="Appointment" EntitySet="Appointment" />
     </AssociationSet>
     <AssociationSet Name="FK_ClientToothCollection_Client" Association="Self.FK_ClientToothCollection_Client">
       <End Role="Client" EntitySet="Client" />
@@ -346,6 +456,10 @@
       <End Role="Author" EntitySet="Author" />
       <End Role="News" EntitySet="News" />
     </AssociationSet>
+    <AssociationSet Name="FK_Reception_Appointment" Association="Self.FK_Reception_Appointment">
+      <End Role="Appointment" EntitySet="Appointment" />
+      <End Role="Reception" EntitySet="Reception" />
+    </AssociationSet>
     <AssociationSet Name="FK_Reception_Client" Association="Self.FK_Reception_Client">
       <End Role="Client" EntitySet="Client" />
       <End Role="Reception" EntitySet="Reception" />
@@ -370,9 +484,25 @@
       <End Role="Doctor" EntitySet="Doctor" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
+    <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
     <AssociationSet Name="FK_User_Position" Association="Self.FK_User_Position">
       <End Role="Position" EntitySet="Position" />
       <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_XrayReception_Client" Association="Self.FK_XrayReception_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="XrayReception" EntitySet="XrayReception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_XrayReception_Doctor" Association="Self.FK_XrayReception_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="XrayReception" EntitySet="XrayReception" />
+    </AssociationSet>
+    <AssociationSet Name="FK_XrayReception_Tooth1" Association="Self.FK_XrayReception_Tooth1">
+      <End Role="Tooth" EntitySet="Tooth" />
+      <End Role="XrayReception" EntitySet="XrayReception" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
